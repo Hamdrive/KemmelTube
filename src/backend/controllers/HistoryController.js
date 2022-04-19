@@ -1,5 +1,7 @@
-import { Response } from "miragejs";
-import { requiresAuth } from "../utils/authUtils";
+/* eslint-disable linebreak-style */
+/* eslint-disable arrow-body-style */
+import { Response } from 'miragejs';
+import { requiresAuth } from '../utils/authUtils';
 
 /**
  * All the routes related to User History are present here.
@@ -19,8 +21,8 @@ export const getHistoryVideosHandler = function (schema, request) {
         404,
         {},
         {
-          errors: ["The email you entered is not Registered. Not Found error"],
-        }
+          errors: ['The email you entered is not Registered. Not Found error'],
+        },
       );
     }
     return new Response(200, {}, { history: user.history });
@@ -30,7 +32,7 @@ export const getHistoryVideosHandler = function (schema, request) {
       {},
       {
         error,
-      }
+      },
     );
   }
 };
@@ -49,8 +51,8 @@ export const addVideoToHistoryHandler = function (schema, request) {
         404,
         {},
         {
-          errors: ["The email you entered is not Registered. Not Found error"],
-        }
+          errors: ['The email you entered is not Registered. Not Found error'],
+        },
       );
     }
     const { video } = JSON.parse(request.requestBody);
@@ -59,8 +61,8 @@ export const addVideoToHistoryHandler = function (schema, request) {
         409,
         {},
         {
-          errors: ["The video is already in your history"],
-        }
+          errors: ['The video is already in your history'],
+        },
       );
     }
     user.history.push(video);
@@ -71,7 +73,7 @@ export const addVideoToHistoryHandler = function (schema, request) {
       {},
       {
         error,
-      }
+      },
     );
   }
 };
@@ -89,11 +91,13 @@ export const removeVideoFromHistoryHandler = function (schema, request) {
         404,
         {},
         {
-          errors: ["The email you entered is not Registered. Not Found error"],
-        }
+          errors: ['The email you entered is not Registered. Not Found error'],
+        },
       );
     }
+    // eslint-disable-next-line prefer-destructuring
     const videoId = request.params.videoId;
+    // eslint-disable-next-line no-underscore-dangle
     const filteredHistory = user.history.filter((item) => item._id !== videoId);
     this.db.users.update({ history: filteredHistory });
     return new Response(200, {}, { history: filteredHistory });
@@ -103,7 +107,7 @@ export const removeVideoFromHistoryHandler = function (schema, request) {
       {},
       {
         error,
-      }
+      },
     );
   }
 };
@@ -121,8 +125,8 @@ export const clearHistoryHandler = function (schema, request) {
         404,
         {},
         {
-          errors: ["The email you entered is not Registered. Not Found error"],
-        }
+          errors: ['The email you entered is not Registered. Not Found error'],
+        },
       );
     }
     this.db.users.update({ history: [] });
@@ -133,7 +137,7 @@ export const clearHistoryHandler = function (schema, request) {
       {},
       {
         error,
-      }
+      },
     );
   }
 };

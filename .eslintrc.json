@@ -23,6 +23,8 @@
             "error",
             "always"
         ],
-        "namedComponents": "arrow-function"
+        "react/function-component-definition": [1, {
+                "namedComponents": "arrow-function"
+            }]
     }
 }

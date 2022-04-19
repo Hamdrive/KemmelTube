@@ -1,4 +1,5 @@
-import React from "react";
+/* eslint-disable import/prefer-default-export */
+import React from 'react';
 
 export const WatchLater = () => {
   return <div>WatchLater</div>;

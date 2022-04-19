@@ -1,4 +1,5 @@
-import { Response } from "miragejs";
+/* eslint-disable linebreak-style */
+import { Response } from 'miragejs';
 /**
  * All the routes related to Category are present here.
  * These are Publicly accessible routes.
@@ -18,7 +19,7 @@ export const getAllCategoriesHandler = function () {
       {},
       {
         error,
-      }
+      },
     );
   }
 };
@@ -39,7 +40,7 @@ export const getCategoryHandler = function (schema, request) {
       {},
       {
         error,
-      }
+      },
     );
   }
 };

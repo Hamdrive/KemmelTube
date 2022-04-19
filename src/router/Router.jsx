@@ -1,17 +1,19 @@
-import React from "react";
-import { Routes, Route } from "react-router-dom";
+/* eslint-disable import/prefer-default-export */
+import React from 'react';
+import { Routes, Route } from 'react-router-dom';
 import {
   Error,
   History,
   Home,
+  Liked,
   Login,
   Playlists,
   Signup,
   Watch,
   WatchLater,
-} from "../pages";
+} from '../pages';
 
-export default function Router() {
+const Router = () => {
   return (
     <Routes>
       <Route path="*" element={<Error />} />
@@ -25,4 +27,6 @@ export default function Router() {
       <Route path="liked" element={<Liked />} />
     </Routes>
   );
-}
+};
+
+export { Router };

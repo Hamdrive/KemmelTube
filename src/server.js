@@ -1,4 +1,4 @@
-/* eslint-disable linebreak-style */
+
 import { Server, Model, RestSerializer } from 'miragejs';
 import {
   loginHandler,

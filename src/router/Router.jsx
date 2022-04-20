@@ -2,6 +2,7 @@ import React from 'react';
 import { Routes, Route } from 'react-router-dom';
 import {
   Error,
+  Explore,
   History,
   Home,
   Liked,
@@ -17,13 +18,14 @@ const Router = () => {
     <Routes>
       <Route path="*" element={<Error />} />
       <Route path="/" element={<Home />} />
-      <Route path="login" element={<Login />} />
-      <Route path="signup" element={<Signup />} />
-      <Route path="history" element={<History />} />
-      <Route path="playlists" element={<Playlists />} />
-      <Route path="watch/:id" element={<Watch />} />
-      <Route path="watchLater" element={<WatchLater />} />
-      <Route path="liked" element={<Liked />} />
+      <Route path="/explore" element={<Explore />} />
+      <Route path="/login" element={<Login />} />
+      <Route path="/signup" element={<Signup />} />
+      <Route path="/history" element={<History />} />
+      <Route path="/playlists" element={<Playlists />} />
+      <Route path="/watch/:id" element={<Watch />} />
+      <Route path="/watchLater" element={<WatchLater />} />
+      <Route path="/liked" element={<Liked />} />
     </Routes>
   );
 };

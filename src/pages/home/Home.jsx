@@ -1,14 +1,20 @@
-import React from "react";
+import React, { useState } from "react";
 // import { Link } from "react-router-dom";
 import logo from "../../assets/KemmelTube.svg";
 import styles from "./Home.module.css";
 import { Navbar, Topbar } from "../../components";
 
 export const Home = () => {
+  const [showSidebar, setShowSidebar] = useState(false);
+
   return (
     <div className="wrapper">
       <section className={styles.page__layout}>
-        <aside className={styles.sidebar}>
+        <aside
+          className={`${showSidebar && styles.sidebar__visible} ${
+            styles.sidebar
+          }`}
+        >
           <div className={styles.aside__logo}>
             <img src={logo} alt="logo" />
           </div>
@@ -17,11 +23,7 @@ export const Home = () => {
         <section className={styles.main__section}>
           <header className={styles.header}>
             <div>
-              <div className={styles.toggle}>
-                <div className={styles.hamburger}></div>
-                <div className={styles.header__logo}></div>
-              </div>
-                <Topbar />
+              <Topbar setShowSidebar={setShowSidebar} />
             </div>
           </header>
           <main>

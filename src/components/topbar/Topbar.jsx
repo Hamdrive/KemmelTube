@@ -9,15 +9,21 @@ import InputBase from "@mui/material/InputBase";
 import { styled, alpha } from "@mui/material/styles";
 import Button from "@mui/material/Button";
 import PersonOutlineIcon from "@mui/icons-material/PersonOutline";
+import logo from "../../assets/KemmelTube.svg";
+import styles from "./Topbar.module.css";
 
-export const Topbar = () => {
+export const Topbar = ({ setShowSidebar }) => {
   const Menu = styled("div")(({ theme }) => ({
     [theme.breakpoints.up(1024)]: {
       display: "none",
     },
+    display: "flex",
   }));
 
   const Search = styled("div")(({ theme }) => ({
+    [theme.breakpoints.down(768)]: {
+      display: "none",
+    },
     position: "relative",
     borderRadius: theme.shape.borderRadius,
     backgroundColor: alpha(theme.palette.common.white, 0.15),
@@ -75,6 +81,7 @@ export const Topbar = () => {
               bgcolor: "#181b21",
               display: "flex",
               justifyContent: "space-between",
+              minHeight: "4rem",
             }}
           >
             <Menu>
@@ -84,9 +91,13 @@ export const Topbar = () => {
                 color="inherit"
                 aria-label="open drawer"
                 sx={{ mr: 2 }}
+                onClick={() => setShowSidebar((prev) => !prev)}
               >
                 <MenuIcon />
               </IconButton>
+              <div className={styles.topbar__logo}>
+                <img src={logo} alt="logo" />
+              </div>
             </Menu>
             <Search>
               <SearchIconWrapper>

@@ -1,6 +1,6 @@
 import React from "react";
 // import { Link } from "react-router-dom";
-import logo from "../../assets/logo1.png";
+import logo from "../../assets/KemmelTube.svg";
 import styles from "./Home.module.css";
 import { Navbar, Topbar } from "../../components";
 

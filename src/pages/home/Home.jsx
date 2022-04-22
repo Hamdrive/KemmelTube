@@ -2,7 +2,7 @@ import React from "react";
 // import { Link } from "react-router-dom";
 import logo from "../../assets/logo1.png";
 import styles from "./Home.module.css";
-import { Navbar } from "../../components";
+import { Navbar, Topbar } from "../../components";
 
 export const Home = () => {
   return (
@@ -21,7 +21,7 @@ export const Home = () => {
                 <div className={styles.hamburger}></div>
                 <div className={styles.header__logo}></div>
               </div>
-              <div className={styles.settings}></div>
+                <Topbar />
             </div>
           </header>
           <main>

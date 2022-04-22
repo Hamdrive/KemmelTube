@@ -1,0 +1,25 @@
+.page__layout {
+  display: grid;
+  grid-template-columns: 1fr;
+  height: 100%;
+}
+
+.sidebar {
+  background-color: hsl(var(--grey-800));
+}
+
+.aside__logo {
+  width: 100%;
+  height: 9rem;
+}
+
+.aside__logo img {
+  width: 100%;
+  height: 100%;
+}
+
+@media screen and (min-width: 1024px) {
+  .page__layout {
+    grid-template-columns: 1fr 5fr;
+  }
+}

@@ -10,3 +10,9 @@
   --red-500: 4, 90%, 58%;
   --red-600: 1, 77%, 55%;
 }
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}

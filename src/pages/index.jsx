@@ -1,12 +1,13 @@
-import { WatchLater } from './watchlater/WatchLater';
-import { Watch } from './watch/Watch';
-import { Signup } from './signup/Signup';
-import { Playlists } from './playlists/Playlists';
-import { Login } from './login/Login';
-import { Liked } from './liked/Liked';
-import { Home } from './home/Home';
-import { History } from './history/History';
-import { Error } from './error/Error';
+import { WatchLater } from "./watchlater/WatchLater";
+import { Watch } from "./watch/Watch";
+import { Signup } from "./signup/Signup";
+import { Playlists } from "./playlists/Playlists";
+import { Login } from "./login/Login";
+import { Liked } from "./liked/Liked";
+import { Home } from "./home/Home";
+import { History } from "./history/History";
+import { Error } from "./error/Error";
+import { Explore } from "./explore/Explore";
 
 export {
   WatchLater,
@@ -18,4 +19,5 @@ export {
   Home,
   History,
   Error,
+  Explore,
 };

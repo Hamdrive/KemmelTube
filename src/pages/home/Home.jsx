@@ -2,7 +2,7 @@ import React, { useState } from "react";
 // import { Link } from "react-router-dom";
 import logo from "../../assets/KemmelTube.svg";
 import styles from "./Home.module.css";
-import { Navbar, Topbar } from "../../components";
+import { HeroContainer, Navbar, Topbar } from "../../components";
 
 export const Home = () => {
   const [showSidebar, setShowSidebar] = useState(false);
@@ -27,7 +27,10 @@ export const Home = () => {
             </div>
           </header>
           <main>
-            <div className="wrapper"></div>
+            <div className="wrapper">
+              <HeroContainer />
+              <div></div>
+            </div>
           </main>
           <footer></footer>
         </section>

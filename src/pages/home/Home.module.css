@@ -28,6 +28,10 @@
   height: 100%;
 }
 
+.main__section {
+  background-color: hsl(var(--grey-900));
+}
+
 @media screen and (min-width: 1024px) {
   .page__layout {
     grid-template-columns: 1fr 5fr;

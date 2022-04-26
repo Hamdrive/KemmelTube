@@ -22,13 +22,13 @@
 
 .heroText img {
   width: 300px;
+  border: 0;
 }
 
 .heroTextTagline {
   color: #fff;
   font-size: 1.2rem;
   font-weight: 500;
-  font-family: "Roboto", sans-serif;
 }
 
 @media screen and (min-width: 1025px) {

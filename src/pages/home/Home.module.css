@@ -15,6 +15,7 @@
 
 .sidebar__visible {
   left: 0;
+  z-index: 2;
 }
 
 .aside__logo {
@@ -30,6 +31,26 @@
 
 .main__section {
   background-color: hsl(var(--grey-900));
+}
+
+.categories{
+  padding: 1.5rem;
+}
+
+.categories__title{
+  color: #fff;
+  font-size: 2rem;
+  font-weight: 500;
+  border-bottom: 3px solid hsl(var(--blue-500));
+  width: fit-content;
+  margin: 1rem 0;
+}
+
+.categories__grid{
+  display: grid;
+  gap: 2rem;
+  grid-gap: 2rem;
+  grid-template-columns: repeat(auto-fill, minmax(15rem, 1fr));
 }
 
 @media screen and (min-width: 1024px) {

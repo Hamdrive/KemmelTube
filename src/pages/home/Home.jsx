@@ -3,6 +3,7 @@ import React, { useState } from "react";
 import logo from "../../assets/KemmelTube.svg";
 import styles from "./Home.module.css";
 import { HeroContainer, Navbar, Topbar } from "../../components";
+import { Categories } from "./Categories";
 
 export const Home = () => {
   const [showSidebar, setShowSidebar] = useState(false);
@@ -29,7 +30,7 @@ export const Home = () => {
           <main>
             <div className="wrapper">
               <HeroContainer />
-              <div></div>
+              <Categories />
             </div>
           </main>
           <footer></footer>

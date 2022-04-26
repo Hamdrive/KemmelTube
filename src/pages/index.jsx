@@ -8,6 +8,7 @@ import { Home } from "./home/Home";
 import { History } from "./history/History";
 import { Error } from "./error/Error";
 import { Explore } from "./explore/Explore";
+import { Categories } from "./home/Categories";
 
 export {
   WatchLater,
@@ -20,4 +21,5 @@ export {
   History,
   Error,
   Explore,
+  Categories,
 };

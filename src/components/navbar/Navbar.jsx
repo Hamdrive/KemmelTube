@@ -22,7 +22,6 @@ export const Navbar = () => {
     backgroundColor: selected === name ? "#1a5bff" : "#1b1f27",
     color: "#fff",
     fontSize: 32,
-    borderRadius: "7px",
     paddingTop: "0.55rem",
     paddingBottom: "0.5rem",
     transition: "transform 1000 ease-in-out",

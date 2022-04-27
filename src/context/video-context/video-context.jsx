@@ -1,26 +1,34 @@
-import { createContext, useContext, useReducer } from "react";
+import { createContext, useContext, useEffect, useReducer } from "react";
 import { videoReducer } from "./video-reducer";
+import { getCategories, getVideos } from "./server-requests.js";
 
-const VideoContext = createContext({})
-
-const useVideo = useContext(VideoContext)
 const initialValue = {
-    videos: [],
-    categories: [],
-    history: [],
-    playlists: [],
-    likedVideos: [],
-    watchLater: [],
-    filter: []
-}
+  videos: [],
+  categories: [],
+  history: [],
+  playlists: [],
+  likedVideos: [],
+  watchLater: [],
+  filter: [],
+};
 
-const VideoProvider = ({children}) => {
-    const [videoState, videoDispatch] = useReducer(videoReducer, initialValue)
+const VideoContext = createContext(initialValue);
 
-    const value={videoState, videoDispatch}
+const VideoProvider = ({ children }) => {
+  const [videoState, videoDispatch] = useReducer(videoReducer, initialValue);
 
-    return <VideoContext.Provider value={value}>{children}</VideoContext.Provider>
-}
+  useEffect(() => {
+    getCategories(videoDispatch);
+    getVideos(videoDispatch);
+  }, []);
 
-export {VideoProvider, useVideo}
+  const value = { videoState, videoDispatch };
 
+  return (
+    <VideoContext.Provider value={value}>{children}</VideoContext.Provider>
+  );
+};
+
+const useVideo = () => useContext(VideoContext);
+
+export { VideoProvider, useVideo };

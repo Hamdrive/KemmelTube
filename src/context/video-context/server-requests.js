@@ -1,7 +1,11 @@
 import axios from "axios";
 import { constants } from "../../constants/constants";
+// import { useVideo } from "./video-context";
 
-const { videos, categories } = constants;
+const { videos, categories, history, playlists, likedVideos, watchLater } =
+  constants;
+
+// const {videoDispatch} = useVideo()
 
 export const getVideos = async (videoDispatch) => {
   try {
@@ -23,4 +27,32 @@ export const getCategories = async (videoDispatch) => {
   } catch {
     throw new Error(" Error while fetching data");
   }
+};
+
+export const getHistory = async (videoDispatch) => {
+  const res = await JSON.parse(localStorage.getItem("userAuthData")).userData
+    .history;
+
+  videoDispatch({ type: history, payload: res });
+};
+
+export const getPlaylists = async (videoDispatch) => {
+  const res = await JSON.parse(localStorage.getItem("userAuthData")).userData
+    .playlists;
+
+  videoDispatch({ type: playlists, payload: res });
+};
+
+export const getLikedVideos = async (videoDispatch) => {
+  const res = await JSON.parse(localStorage.getItem("userAuthData")).userData
+    .likes;
+
+  videoDispatch({ type: likedVideos, payload: res });
+};
+
+export const getWatchLater = async (videoDispatch) => {
+  const res = await JSON.parse(localStorage.getItem("userAuthData")).userData
+    .watchlater;
+
+  videoDispatch({ type: watchLater, payload: res });
 };

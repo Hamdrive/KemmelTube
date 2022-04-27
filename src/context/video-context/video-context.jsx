@@ -1,6 +1,13 @@
 import { createContext, useContext, useEffect, useReducer } from "react";
 import { videoReducer } from "./video-reducer";
-import { getCategories, getVideos } from "./server-requests.js";
+import {
+  getCategories,
+  getHistory,
+  getLikedVideos,
+  getPlaylists,
+  getVideos,
+  getWatchLater,
+} from "./server-requests.js";
 
 const initialValue = {
   videos: [],
@@ -20,6 +27,10 @@ const VideoProvider = ({ children }) => {
   useEffect(() => {
     getCategories(videoDispatch);
     getVideos(videoDispatch);
+    getHistory(videoDispatch);
+    getPlaylists(videoDispatch);
+    getLikedVideos(videoDispatch);
+    getWatchLater(videoDispatch);
   }, []);
 
   const value = { videoState, videoDispatch };

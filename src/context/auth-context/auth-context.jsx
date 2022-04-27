@@ -3,7 +3,7 @@ import { authReducer } from "./auth-reducer";
 
 const AuthContext = createContext({});
 
-const useAuth = useContext(AuthContext);
+const useAuth = () => useContext(AuthContext);
 
 const initialValue = JSON.parse(localStorage.getItem("userAuthData")) ?? {};
 

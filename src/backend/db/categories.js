@@ -9,7 +9,7 @@ export const categories = [
   {
     _id: uuid(),
     id: 1,
-    categoryName: "The Glorious V10s",
+    categoryName: "Glorious V10s",
     description:
       "Engross yourself into the most beautiful sounding era of Formula 1",
     coverImg:
@@ -26,7 +26,7 @@ export const categories = [
   {
     _id: uuid(),
     id: 3,
-    categoryName: "Inspector Seb Series",
+    categoryName: "Inspector Seb",
     description:
       "Join Sebastian Vettel as he uncovers new mysteries every race week",
     coverImg:
@@ -35,7 +35,7 @@ export const categories = [
   {
     _id: uuid(),
     id: 4,
-    categoryName: "F1 Meme Review",
+    categoryName: "F1 Memes",
     description:
       "What quirky reviews have creators come up with for this race week?",
     coverImg:

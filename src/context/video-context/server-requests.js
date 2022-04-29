@@ -1,11 +1,8 @@
 import axios from "axios";
 import { constants } from "../../constants/constants";
-// import { useVideo } from "./video-context";
 
 const { videos, categories, history, playlists, likedVideos, watchLater } =
   constants;
-
-// const {videoDispatch} = useVideo()
 
 export const getVideos = async (videoDispatch) => {
   try {
@@ -30,29 +27,41 @@ export const getCategories = async (videoDispatch) => {
 };
 
 export const getHistory = async (videoDispatch) => {
-  const res = await JSON.parse(localStorage.getItem("userAuthData")).userData
-    .history;
+  try {
+    const res = await JSON.parse(localStorage.getItem("userAuthData")).userData;
 
-  videoDispatch({ type: history, payload: res });
+    videoDispatch({ type: history, payload: res.history });
+  } catch (error) {
+    throw new Error(error);
+  }
 };
 
 export const getPlaylists = async (videoDispatch) => {
-  const res = await JSON.parse(localStorage.getItem("userAuthData")).userData
-    .playlists;
+  try {
+    const res = await JSON.parse(localStorage.getItem("userAuthData")).userData;
 
-  videoDispatch({ type: playlists, payload: res });
+    videoDispatch({ type: playlists, payload: res.playlists });
+  } catch (error) {
+    throw new Error(error);
+  }
 };
 
 export const getLikedVideos = async (videoDispatch) => {
-  const res = await JSON.parse(localStorage.getItem("userAuthData")).userData
-    .likes;
+  try {
+    const res = await JSON.parse(localStorage.getItem("userAuthData")).userData;
 
-  videoDispatch({ type: likedVideos, payload: res });
+    videoDispatch({ type: likedVideos, payload: res.likes });
+  } catch (error) {
+    throw new Error(error);
+  }
 };
 
 export const getWatchLater = async (videoDispatch) => {
-  const res = await JSON.parse(localStorage.getItem("userAuthData")).userData
-    .watchlater;
+  try {
+    const res = await JSON.parse(localStorage.getItem("userAuthData")).userData;
 
-  videoDispatch({ type: watchLater, payload: res });
+    videoDispatch({ type: watchLater, payload: res.watchlater });
+  } catch (error) {
+    throw new Error(error);
+  }
 };

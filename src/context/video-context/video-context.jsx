@@ -10,6 +10,7 @@ import {
 } from "./server-requests.js";
 import { filterVideos } from "./filterVideos";
 import { constants } from "../../constants/constants";
+import { useAuth } from "../../context";
 
 const { filteredVideos } = constants;
 
@@ -29,6 +30,10 @@ const VideoContext = createContext(initialValue);
 const VideoProvider = ({ children }) => {
   const [videoState, videoDispatch] = useReducer(videoReducer, initialValue);
 
+  const {
+    authState: { token },
+  } = useAuth();
+
   useEffect(() => {
     const finalVideos = filterVideos(videoState, [...videoState.videos]);
     videoDispatch({ type: filteredVideos, payload: finalVideos });
@@ -37,10 +42,13 @@ const VideoProvider = ({ children }) => {
   useEffect(() => {
     getCategories(videoDispatch);
     getVideos(videoDispatch);
-    getHistory(videoDispatch);
-    getPlaylists(videoDispatch);
-    getLikedVideos(videoDispatch);
-    getWatchLater(videoDispatch);
+
+    if (token) {
+      getHistory(videoDispatch);
+      getPlaylists(videoDispatch);
+      getLikedVideos(videoDispatch);
+      getWatchLater(videoDispatch);
+    }
   }, []);
 
   const value = { videoState, videoDispatch };

@@ -7,6 +7,7 @@ export const videos = [
   //V10s
   {
     _id: "FGINdQGaVh0",
+    categoryName: "Glorious V10s",
     title: "2005 Japanese Grand Prix: Race Highlights | DHL F1 Classics",
     description:
       "Step back in time with us to Suzuka in 2005, when Kimi Raikkonen produced one of the greatest drives of his career",
@@ -14,6 +15,7 @@ export const videos = [
   },
   {
     _id: "R22nxVYLaBQ",
+    categoryName: "Glorious V10s",
     title: "1998 Belgian Grand Prix: Race Highlights | DHL F1 Classics",
     creator: "F1",
     description:
@@ -21,6 +23,7 @@ export const videos = [
   },
   {
     _id: "hwcSaayPy7w",
+    categoryName: "Glorious V10s",
     title: "2005 Raikkonen's Suzuka Masterclass",
     creator: "F1",
     description:
@@ -28,6 +31,7 @@ export const videos = [
   },
   {
     _id: "oe1iCcuoHl0",
+    categoryName: "Glorious V10s",
     title: "CHAOTIC RACE IN SEPANG - 2005 Malaysian Grand Prix",
     creator: "F1",
     description:
@@ -35,6 +39,7 @@ export const videos = [
   },
   {
     _id: "pwHbwWiMGfw",
+    categoryName: "Glorious V10s",
     title: "One Of The Craziest Races: 1996 Monaco Grand Prix",
     creator: "F1",
     description:
@@ -44,6 +49,7 @@ export const videos = [
   //wtf1
   {
     _id: "OMN0oB0Waqw",
+    categoryName: "What the F1",
     title: "What's more important: The Driver or the car?",
     creator: "Chain Bear",
     description:
@@ -51,6 +57,7 @@ export const videos = [
   },
   {
     _id: "6OLVFa8YRfM",
+    categoryName: "What the F1",
     title: "The Insane Logistics of Formula 1",
     creator: "Wendover Productions",
     description:
@@ -58,6 +65,7 @@ export const videos = [
   },
   {
     _id: "hgLQWIAaCmY",
+    categoryName: "What the F1",
     title: "Formula 1 - Everything You Need to Know | Up to Speed",
     creator: "Donut Media",
     description:
@@ -65,6 +73,7 @@ export const videos = [
   },
   {
     _id: "Zj8YB9ThPv4",
+    categoryName: "What the F1",
     title: "How Much F1 Crashes Actually Cost",
     creator: "Donut Media",
     description:
@@ -72,6 +81,7 @@ export const videos = [
   },
   {
     _id: "jGHqxKC-hAM",
+    categoryName: "What the F1",
     title: "The Secret Evolution of F1 Cockpits",
     creator: "Driver61",
     description:
@@ -81,6 +91,7 @@ export const videos = [
   //Insp Seb
   {
     _id: "MPs8odrk44M",
+    categoryName: "Inspector Seb",
     title: "Inspector Seb at Work",
     creator: "ThatOneFormula",
     description:
@@ -88,6 +99,7 @@ export const videos = [
   },
   {
     _id: "4f7uO_QKwVk",
+    categoryName: "Inspector Seb",
     title: "Inspector Seb",
     creator: "ThatOneFormula",
     description:
@@ -95,6 +107,7 @@ export const videos = [
   },
   {
     _id: "RJqHzADFm3I",
+    categoryName: "Inspector Seb",
     title: "Inspector SEB on the mission",
     creator: "ABC Sport",
     description:
@@ -102,6 +115,7 @@ export const videos = [
   },
   {
     _id: "LH9yXEpoMEw",
+    categoryName: "Inspector Seb",
     title: "Sebastian Vettel Names EVERY F1 Champion",
     creator: "FORMULA 1",
     description:
@@ -109,6 +123,7 @@ export const videos = [
   },
   {
     _id: "BTrsVWHTQXQ",
+    categoryName: "Inspector Seb",
     title: "F1 2021 Qatar GP drivers press conference Sebastian Vettel",
     creator: "Not only racing",
     description:
@@ -118,6 +133,7 @@ export const videos = [
   //F1 memes
   {
     _id: "SX-sU7oosL8",
+    categoryName: "F1 Memes",
     title: "Funniest F1 Moments Of 2021",
     creator: "FORMULA 1",
     description:
@@ -125,6 +141,7 @@ export const videos = [
   },
   {
     _id: "PKqqQ1qitec",
+    categoryName: "F1 Memes",
     title: "F1 Animated! 2019 Season",
     creator: "FORMULA 1",
     description:
@@ -132,6 +149,7 @@ export const videos = [
   },
   {
     _id: "NDrH1WbGqCE",
+    categoryName: "F1 Memes",
     title:
       "Alphamaxnova1 2020 SEASON RECAP - w/ LightLune, MattZaba03 (OFFICIAL)",
     creator: "LightLune",
@@ -140,12 +158,14 @@ export const videos = [
   },
   {
     _id: "E_P50Z2E69g",
+    categoryName: "F1 Memes",
     title: "Daniil Kvyat Hardbass Compilation Remastered",
     creator: "Dacha44",
     description: "*Hardbass Intensifies*",
   },
   {
     _id: "6ywT-YZam0g",
+    categoryName: "F1 Memes",
     title: "F1 2021 Abu Dhabi Meme Recap",
     creator: "Gross Jean",
     description: "NO MICHEAL NOOOO",

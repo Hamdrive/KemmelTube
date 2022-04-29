@@ -1,18 +1,18 @@
 import React from "react";
 import styles from "./Home.module.css";
 import { PreviewCard } from "../../components";
-import { categories } from "../../backend/db/categories";
 import { Grid } from "@mui/material";
+import { useVideo } from "../../context";
 
 export const Categories = () => {
+  const {
+    videoState: { categories },
+  } = useVideo();
+
   return (
     <div className={styles.categories}>
       <div className={styles.categories__title}>Browse Categories</div>
-      <Grid
-        columns={{ xs: 1, sm: 2, md: 4 }}
-        sx={{gap:2}}
-        container
-      >
+      <Grid columns={{ xs: 1, sm: 2, md: 4 }} sx={{ gap: 2 }} container>
         {categories.map((item) => (
           <PreviewCard
             key={item.id}

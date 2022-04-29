@@ -35,7 +35,7 @@ const VideoProvider = ({ children }) => {
   } = useAuth();
 
   useEffect(() => {
-    const finalVideos = filterVideos(videoState, [...videoState.videos]);
+    const finalVideos = filterVideos(videoState.filters, [...videoState.videos]);
     videoDispatch({ type: filteredVideos, payload: finalVideos });
   }, [videoState.categories]);
 

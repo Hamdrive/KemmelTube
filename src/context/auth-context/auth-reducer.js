@@ -1,14 +1,15 @@
 import { constants } from "../../constants/constants";
 
-const { login, logout } = constants;
+const { login, logout, signup } = constants;
 
 export const authReducer = (state, { type, payload }) => {
   switch (type) {
+    case signup:
     case login:
       return {
         ...state,
         token: payload.token,
-        userName: payload.userName,
+        userName: payload.userData.firstName,
         userData: payload.userData,
       };
 

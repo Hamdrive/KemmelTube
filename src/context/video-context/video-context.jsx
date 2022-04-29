@@ -8,21 +8,31 @@ import {
   getVideos,
   getWatchLater,
 } from "./server-requests.js";
+import { filterVideos } from "./filterVideos";
+import { constants } from "../../constants/constants";
+
+const { filteredVideos } = constants;
 
 const initialValue = {
   videos: [],
+  filteredVideos: [],
   categories: [],
   history: [],
   playlists: [],
   likedVideos: [],
   watchLater: [],
-  filter: [],
+  filters: [],
 };
 
 const VideoContext = createContext(initialValue);
 
 const VideoProvider = ({ children }) => {
   const [videoState, videoDispatch] = useReducer(videoReducer, initialValue);
+
+  useEffect(() => {
+    const finalVideos = filterVideos(videoState, [...videoState.videos]);
+    videoDispatch({ type: filteredVideos, payload: finalVideos });
+  }, [videoState.categories]);
 
   useEffect(() => {
     getCategories(videoDispatch);

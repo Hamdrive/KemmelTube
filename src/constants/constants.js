@@ -3,6 +3,7 @@ export const constants = {
   logout: "LOGOUT",
   signup: "SIGNUP",
   videos: "VIDEOS",
+  filteredVideos: "FILTERED_VIDEOS",
   categories: "CATEGORIES",
   filter: "FILTER",
   history: "HISTORY",

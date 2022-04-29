@@ -4,6 +4,7 @@ const {
   videos,
   categories,
   filter,
+  filteredVideos,
   history,
   addToHistory,
   deleteHistory,
@@ -31,6 +32,9 @@ export const videoReducer = (state, { type, payload }) => {
 
     case filter:
       return { ...state, filter: [...state.filter, payload] };
+
+    case filteredVideos:
+      return { ...state, filteredVideos: payload };
 
     case history:
     case addToHistory:

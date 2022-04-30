@@ -31,7 +31,7 @@ export const videoReducer = (state, { type, payload }) => {
       return { ...state, categories: payload };
 
     case filter:
-      return { ...state, filter: [...state.filter, payload] };
+      return { ...state, filters: payload };
 
     case filteredVideos:
       return { ...state, filteredVideos: payload };

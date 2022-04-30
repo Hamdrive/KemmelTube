@@ -22,7 +22,7 @@ const initialValue = {
   playlists: [],
   likedVideos: [],
   watchLater: [],
-  filters: [],
+  filters: "All",
 };
 
 const VideoContext = createContext(initialValue);
@@ -37,7 +37,7 @@ const VideoProvider = ({ children }) => {
   useEffect(() => {
     const finalVideos = filterVideos(videoState.filters, [...videoState.videos]);
     videoDispatch({ type: filteredVideos, payload: finalVideos });
-  }, [videoState.categories]);
+  }, [videoState.filters]);
 
   useEffect(() => {
     getCategories(videoDispatch);

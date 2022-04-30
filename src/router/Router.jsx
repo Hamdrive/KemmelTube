@@ -19,6 +19,7 @@ const Router = () => {
     <Routes>
       <Route path="/" element={<Home />} />
       <Route path="/explore" element={<Explore />} />
+      <Route path="/watch/:id" element={<Watch />} />
 
       <Route element={<RedirectAuth />}>
         <Route path="/login" element={<Login />} />
@@ -28,7 +29,6 @@ const Router = () => {
       <Route element={<RedirectAuth />}>
         <Route path="/history" element={<History />} />
         <Route path="/playlists" element={<Playlists />} />
-        <Route path="/watch/:id" element={<Watch />} />
         <Route path="/watchLater" element={<WatchLater />} />
         <Route path="/liked" element={<Liked />} />
       </Route>

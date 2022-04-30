@@ -3,12 +3,14 @@ import { Router } from "./router";
 import "./index.css";
 import { AuthProvider, VideoProvider } from "./context";
 import { NavigationWrapper } from "./components";
+import { WindowScrollToTop } from "./windowScrollToTop/windowScrollToTop";
 
 function App() {
   return (
     <AuthProvider>
       <VideoProvider>
         <NavigationWrapper>
+          <WindowScrollToTop />
           <Router />
         </NavigationWrapper>
       </VideoProvider>

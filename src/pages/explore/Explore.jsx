@@ -1,7 +1,14 @@
-import React from 'react'
+import React, { useState } from "react";
+import { CategoryFilter } from "../../components";
 
 export const Explore = () => {
+  const [selectedCategory, setSelectedCategory] = useState("All");
   return (
-    <div>Explore</div>
-  )
-}
+    <main className="wrapper">
+      <CategoryFilter
+        selectedCategory={selectedCategory}
+        setSelectedCategory={setSelectedCategory}
+      />
+    </main>
+  );
+};

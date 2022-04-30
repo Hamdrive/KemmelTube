@@ -1,4 +1,5 @@
 import {
+  Avatar,
   Card,
   CardActionArea,
   CardContent,
@@ -6,9 +7,10 @@ import {
   Grid,
   Typography,
 } from "@mui/material";
+import { Box } from "@mui/system";
 import React from "react";
 
-export const ExploreCard = ({ title, coverImg, creator }) => {
+export const ExploreCard = ({ title, thumbnail, creator, creatorLogo }) => {
   return (
     <Grid
       item
@@ -32,10 +34,19 @@ export const ExploreCard = ({ title, coverImg, creator }) => {
         <CardMedia
           component="img"
           height="175"
-          image={coverImg}
+          image={thumbnail}
           alt="category image"
+          sx={{ objectFit: "fill" }}
         />
-        <CardContent sx={{ flexGrow: 1, width: "100%" }}>
+        <CardContent
+          sx={{
+            display: "flex",
+            flexDirection: "column",
+            justifyContent: "space-between",
+            flexGrow: 1,
+            width: "100%",
+          }}
+        >
           <Typography
             color="#fff"
             fontWeight={600}
@@ -45,9 +56,22 @@ export const ExploreCard = ({ title, coverImg, creator }) => {
           >
             {title}
           </Typography>
-          <Typography color="#fff" variant="body1">
-            {creator}
-          </Typography>
+          <Box
+            sx={{
+              display: "flex",
+              justifyContent: "flex-start",
+              alignItems: "center",
+            }}
+          >
+            <Avatar
+              alt="creator logo"
+              src={creatorLogo}
+              sx={{ width: 36, height: 36, mr: 2 }}
+            />
+            <Typography color="#fff" variant="body1">
+              {creator}
+            </Typography>
+          </Box>
         </CardContent>
       </CardActionArea>
     </Grid>

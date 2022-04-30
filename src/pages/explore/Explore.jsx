@@ -7,7 +7,9 @@ export const Explore = () => {
   const {
     videoState: { filteredVideos, filters },
   } = useVideo();
+
   const [selectedCategory, setSelectedCategory] = useState(filters ?? "All");
+
   return (
     <main className="wrapper px-1">
       <CategoryFilter
@@ -23,9 +25,9 @@ export const Explore = () => {
           <ExploreCard
             key={video.id}
             title={video.title}
-            // thumbnail={video.}
-            //logo={}
+            thumbnail={video.thumbnail}
             creator={video.creator}
+            creatorLogo={video.creatorLogo}
           />
         ))}
       </Grid>

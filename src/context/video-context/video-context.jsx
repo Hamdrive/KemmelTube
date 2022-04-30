@@ -35,13 +35,15 @@ const VideoProvider = ({ children }) => {
   } = useAuth();
 
   useEffect(() => {
-    const finalVideos = filterVideos(videoState.filters, [...videoState.videos]);
+    const finalVideos = filterVideos(videoState.filters, [
+      ...videoState.videos,
+    ]);
     videoDispatch({ type: filteredVideos, payload: finalVideos });
-  }, [videoState.filters]);
+  }, [videoState.filters, videoState.videos]);
 
   useEffect(() => {
-    getCategories(videoDispatch);
     getVideos(videoDispatch);
+    getCategories(videoDispatch);
 
     if (token) {
       getHistory(videoDispatch);

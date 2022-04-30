@@ -78,8 +78,8 @@ export const Topbar = ({ setShowSidebar }) => {
   return (
     <div className="topbar">
       {!(
-        location.pathname.includes("signup") ||
-        location.pathname.includes("login")
+        location?.pathname === ("signup") ||
+        location?.pathname === ("login")
       ) && (
         <Box sx={{ flexGrow: 1 }}>
           <AppBar position="static">

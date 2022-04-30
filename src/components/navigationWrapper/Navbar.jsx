@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Box from "@mui/material/Box";
 import List from "@mui/material/List";
 import ListItemButton from "@mui/material/ListItemButton";
@@ -31,11 +31,32 @@ export const Navbar = () => {
     width: "100%",
   }));
 
+  useEffect(() => {
+    switch(location.pathname){
+      case "/explore":
+        setSelected("explore");
+        break;
+      case "/history":
+        setSelected("history");
+        break;
+      case "/playlists":
+        setSelected("playlists");
+        break;
+      case "/liked":
+        setSelected("liked");
+        break;
+      case "/watchLater":
+        setSelected("watchLater");
+        break;
+      
+    }
+  }, [location.pathname])
+
   return (
     <nav className="navigation">
       {!(
-        location.pathname.includes("signup") ||
-        location.pathname.includes("login")
+        location?.pathname === ("signup") ||
+        location?.pathname === ("login")
       ) && (
         <Box sx={{ width: "100%", maxWidth: 360 }}>
           <List component="nav" aria-label="main mailbox folders">

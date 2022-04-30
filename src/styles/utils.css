@@ -8,3 +8,7 @@
 .topbar {
   height: 4rem;
 }
+
+.link__decoration {
+  text-decoration: none;
+}

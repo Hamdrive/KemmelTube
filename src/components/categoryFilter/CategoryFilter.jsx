@@ -2,32 +2,40 @@ import React from "react";
 import { styled } from "@mui/material/styles";
 import { useVideo } from "../../context";
 import { Chip, Paper, Button } from "@mui/material";
-
-const ListItem = styled("li")(({ theme }) => ({
-  margin: theme.spacing(0.5),
-}));
-
-const ChipItem = styled(Chip)(() => ({
-  "&&:hover": {
-    backgroundColor: "#396ff9",
-  },
-  "&&:focus": {
-    backgroundColor: "#1a5bff",
-  },
-
-  padding: "8px",
-  fontWeight: 400,
-  fontSize: "14px",
-  color: "#fff",
-  border: "none",
-  backgroundColor: "#1b1f27",
-}));
+import { constants } from "../../constants/constants";
 
 export const CategoryFilter = ({ selectedCategory, setSelectedCategory }) => {
   const {
     videoState: { categories },
+    videoDispatch,
   } = useVideo();
-  console.log(selectedCategory);
+
+  const { filter } = constants;
+
+  const ListItem = styled("li")(({ theme }) => ({
+    margin: theme.spacing(0.5),
+  }));
+
+  const ChipItem = styled(Chip)(({ label }) => ({
+    "&:hover": {
+      backgroundColor: "#396ff9",
+    },
+    "&:focus": {
+      backgroundColor: "#1a5bff",
+    },
+
+    padding: "8px",
+    fontWeight: 400,
+    fontSize: "14px",
+    color: "#fff",
+    border: "none",
+    backgroundColor: label === selectedCategory ? "#1a5bff" : "#1b1f27",
+  }));
+
+  const handleCategory = (category) => {
+    videoDispatch({ type: filter, payload: category });
+    setSelectedCategory(category);
+  };
 
   return (
     <Paper
@@ -48,7 +56,7 @@ export const CategoryFilter = ({ selectedCategory, setSelectedCategory }) => {
           label="All"
           variant={selectedCategory === "All" ? "filled" : "outlined"}
           sx={{ backgroundColor: selectedCategory === "All" && "#1a5bff" }}
-          onClick={() => setSelectedCategory("All")}
+          onClick={() => handleCategory("All")}
         />
       </ListItem>
 
@@ -59,7 +67,7 @@ export const CategoryFilter = ({ selectedCategory, setSelectedCategory }) => {
             variant={
               selectedCategory === category.categoryName ? "filled" : "outlined"
             }
-            onClick={() => setSelectedCategory(category.categoryName)}
+            onClick={() => handleCategory(category.categoryName)}
           />
         </ListItem>
       ))}
@@ -76,11 +84,10 @@ export const CategoryFilter = ({ selectedCategory, setSelectedCategory }) => {
         }}
         variant="contained"
         size="small"
-        onClick={() => setSelectedCategory("All")}
+        onClick={() => handleCategory("All")}
       >
         Reset
       </Button>
-
     </Paper>
   );
 };

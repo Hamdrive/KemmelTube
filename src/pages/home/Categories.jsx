@@ -3,11 +3,15 @@ import styles from "./Home.module.css";
 import { PreviewCard } from "../../components";
 import { Grid } from "@mui/material";
 import { useVideo } from "../../context";
+import { constants } from "../../constants/constants";
 
 export const Categories = () => {
   const {
     videoState: { categories },
+    videoDispatch,
   } = useVideo();
+
+  const { filter } = constants;
 
   return (
     <div className={styles.categories}>
@@ -19,6 +23,9 @@ export const Categories = () => {
             title={item.categoryName}
             coverImg={item.coverImg}
             description={item.description}
+            onClick={() =>
+              videoDispatch({ type: filter, payload: item.categoryName })
+            }
           />
         ))}
       </Grid>

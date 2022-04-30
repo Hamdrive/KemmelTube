@@ -55,8 +55,8 @@ export const Navbar = () => {
   return (
     <nav className="navigation">
       {!(
-        location?.pathname === ("signup") ||
-        location?.pathname === ("login")
+        location?.pathname === ("/signup") ||
+        location?.pathname === ("/login")
       ) && (
         <Box sx={{ width: "100%", maxWidth: 360 }}>
           <List component="nav" aria-label="main mailbox folders">

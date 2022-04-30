@@ -12,3 +12,16 @@
 .link__decoration {
   text-decoration: none;
 }
+
+/* padding */
+.px-md{
+  padding: 0 8px;
+}
+
+.px-1{
+  padding: 0 1rem;
+}
+
+.p-1{
+  padding: 1rem;
+}

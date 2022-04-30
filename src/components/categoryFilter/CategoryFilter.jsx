@@ -28,7 +28,7 @@ export const CategoryFilter = ({ selectedCategory, setSelectedCategory }) => {
     fontWeight: 400,
     fontSize: "14px",
     color: "#fff",
-    border: "none",
+    border: `1px solid ${label === selectedCategory ? "#1a5bff" : "#fff"}`,
     backgroundColor: label === selectedCategory ? "#1a5bff" : "#1b1f27",
   }));
 

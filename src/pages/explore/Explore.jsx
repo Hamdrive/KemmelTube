@@ -11,7 +11,7 @@ export const Explore = () => {
   const [selectedCategory, setSelectedCategory] = useState(filters ?? "All");
 
   return (
-    <main className="wrapper px-1">
+    <main className="wrapper p-1">
       <CategoryFilter
         selectedCategory={selectedCategory}
         setSelectedCategory={setSelectedCategory}

@@ -10,9 +10,12 @@ import { styled, alpha } from "@mui/material/styles";
 import Button from "@mui/material/Button";
 import PersonOutlineIcon from "@mui/icons-material/PersonOutline";
 import logo from "../../assets/KemmelTube.svg";
-import styles from "./Topbar.module.css";
+import styles from "./NavigationWrapper.module.css";
+import { useLocation } from "react-router-dom";
 
 export const Topbar = ({ setShowSidebar }) => {
+  const location = useLocation();
+
   const Menu = styled("div")(({ theme }) => ({
     [theme.breakpoints.up(1024)]: {
       display: "none",
@@ -74,47 +77,52 @@ export const Topbar = ({ setShowSidebar }) => {
 
   return (
     <div className="topbar">
-      <Box sx={{ flexGrow: 1 }}>
-        <AppBar position="static">
-          <Toolbar
-            sx={{
-              bgcolor: "#181b21",
-              display: "flex",
-              justifyContent: "space-between",
-              minHeight: "4rem",
-            }}
-          >
-            <Menu>
-              <IconButton
-                size="large"
-                edge="start"
-                color="inherit"
-                aria-label="open drawer"
-                sx={{ mr: 2 }}
-                onClick={() => setShowSidebar((prev) => !prev)}
-              >
-                <MenuIcon />
-              </IconButton>
-              <div className={styles.topbar__logo}>
-                <img src={logo} alt="logo" />
-              </div>
-            </Menu>
-            <Search>
-              <SearchIconWrapper>
-                <SearchIcon />
-              </SearchIconWrapper>
-              <StyledInputBase
-                placeholder="Search…"
-                inputProps={{ "aria-label": "search" }}
-              />
-            </Search>
-            <ButtonWrapper>
-              <PersonOutlineIcon sx={{ mr: 1.5 }} />
-              Login
-            </ButtonWrapper>
-          </Toolbar>
-        </AppBar>
-      </Box>
+      {!(
+        location.pathname.includes("signup") ||
+        location.pathname.includes("login")
+      ) && (
+        <Box sx={{ flexGrow: 1 }}>
+          <AppBar position="static">
+            <Toolbar
+              sx={{
+                bgcolor: "#181b21",
+                display: "flex",
+                justifyContent: "space-between",
+                minHeight: "4rem",
+              }}
+            >
+              <Menu>
+                <IconButton
+                  size="large"
+                  edge="start"
+                  color="inherit"
+                  aria-label="open drawer"
+                  sx={{ mr: 2 }}
+                  onClick={() => setShowSidebar((prev) => !prev)}
+                >
+                  <MenuIcon />
+                </IconButton>
+                <div className={styles.topbar__logo}>
+                  <img src={logo} alt="logo" />
+                </div>
+              </Menu>
+              <Search>
+                <SearchIconWrapper>
+                  <SearchIcon />
+                </SearchIconWrapper>
+                <StyledInputBase
+                  placeholder="Search…"
+                  inputProps={{ "aria-label": "search" }}
+                />
+              </Search>
+              <ButtonWrapper>
+                <PersonOutlineIcon sx={{ mr: 1.5 }} />
+                Login
+              </ButtonWrapper>
+            </Toolbar>
+          </AppBar>
+        </Box>
+      )}
     </div>
   );
 };

@@ -24,6 +24,7 @@ export const Explore = () => {
         {filteredVideos.map((video) => (
           <ExploreCard
             key={video.id}
+            slug={video._id}
             title={video.title}
             thumbnail={video.thumbnail}
             creator={video.creator}

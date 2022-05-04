@@ -9,8 +9,9 @@ import {
 } from "@mui/material";
 import { Box } from "@mui/system";
 import React from "react";
+import { Link } from "react-router-dom";
 
-export const ExploreCard = ({ title, thumbnail, creator, creatorLogo }) => {
+export const ExploreCard = ({ title, thumbnail, creator, creatorLogo, slug }) => {
   return (
     <Grid
       item
@@ -28,8 +29,12 @@ export const ExploreCard = ({ title, thumbnail, creator, creatorLogo }) => {
         flexDirection: "column",
       }}
     >
+      
       <CardActionArea
+        component={Link}
+        to={`/watch/${slug}`}
         sx={{ height: "100%", display: "flex", flexDirection: "column" }}
+
       >
         <CardMedia
           component="img"

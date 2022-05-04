@@ -1,30 +1,53 @@
 import React from "react";
-import YouTube from "react-youtube";
+import { Grid, Typography } from "@mui/material";
+import { RelatedVideoCard, SingleVideoCard } from "../../components";
 import { useParams } from "react-router-dom";
-import { Grid } from "@mui/material";
+import { useVideo } from "../../context";
 
 export const Watch = () => {
   const { slug } = useParams();
+  const {
+    videoState: { videos },
+  } = useVideo();
 
-  const opts = {
-    height: "500",
-    width: "100%",
-    playerVars: {
-      autoplay: 1,
-      rel: 0,
-    },
-  };
+  const currentVideo = videos?.find((video) => video._id === slug);
 
-  console.log(slug);
+  const relatedVideos = videos?.filter(
+    (video) =>
+      video.categoryName === currentVideo.categoryName && video._id !== slug
+  );
+
+  console.log(relatedVideos);
 
   return (
     <main className="wrapper p-1">
-      <Grid container >
-        <Grid item xs={12} md={8}>
-          <YouTube videoId={slug} opts={opts} />
-        </Grid>
-        <Grid item xs={12} md={4} p={1}>
-          <div >Related videos</div>
+      <Grid container>
+        <SingleVideoCard
+          slug={slug}
+          title={currentVideo?.title}
+          creator={currentVideo?.creator}
+          creatorLogo={currentVideo?.creatorLogo}
+          description={currentVideo?.description}
+        />
+        <Grid item xs={12} md={4} lg={3} p={1}>
+          <Typography
+            color="#fff"
+            fontWeight={500}
+            fontSize="1.5rem"
+            variant="h3"
+            component="div">
+            Related Videos
+          </Typography>
+          {relatedVideos.map((video) => (
+            <RelatedVideoCard
+              key={video.id}
+              slug={video._id}
+              title={video.title}
+              thumbnail={video.thumbnail}
+              creator={video.creator}
+              creatorLogo={video.creatorLogo}
+            />
+          ))}
         </Grid>
         Watch
       </Grid>

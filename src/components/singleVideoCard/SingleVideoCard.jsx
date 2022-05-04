@@ -3,10 +3,10 @@ import { Avatar, Button, Divider, Grid, Typography } from "@mui/material";
 import YouTube from "react-youtube";
 import { Box } from "@mui/system";
 import ThumbUpAltIcon from "@mui/icons-material/ThumbUpAlt";
-import ThumbUpOffAltIcon from "@mui/icons-material/ThumbUpOffAlt";
+// import ThumbUpOffAltIcon from "@mui/icons-material/ThumbUpOffAlt";
 import WatchLaterIcon from "@mui/icons-material/WatchLater";
 import PlaylistAddIcon from "@mui/icons-material/PlaylistAdd";
-import PlaylistAddCheckIcon from "@mui/icons-material/PlaylistAddCheck";
+// import PlaylistAddCheckIcon from "@mui/icons-material/PlaylistAddCheck";
 
 export const SingleVideoCard = ({
   slug,
@@ -29,7 +29,7 @@ export const SingleVideoCard = ({
       id: 1,
       name: "Like",
       title: "Like video",
-      icon: 1 ? <ThumbUpAltIcon /> : <ThumbUpOffAltIcon />,
+      icon: <ThumbUpAltIcon />,
     },
     {
       id: 2,
@@ -41,7 +41,7 @@ export const SingleVideoCard = ({
       id: 3,
       name: "Add to Playlist",
       title: "Add video to playlist",
-      icon: 1 ? <PlaylistAddIcon /> : <PlaylistAddCheckIcon />,
+      icon: <PlaylistAddIcon />,
     },
   ];
 

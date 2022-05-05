@@ -11,9 +11,9 @@ import Button from "@mui/material/Button";
 import PersonOutlineIcon from "@mui/icons-material/PersonOutline";
 import logo from "../../assets/KemmelTube.svg";
 import styles from "./NavigationWrapper.module.css";
-import { useLocation } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 
-export const Topbar = ({ setShowSidebar }) => {
+export const Topbar = ({ setShowSidebar, setSelected }) => {
   const location = useLocation();
 
   const Menu = styled("div")(({ theme }) => ({
@@ -78,8 +78,7 @@ export const Topbar = ({ setShowSidebar }) => {
   return (
     <div className="topbar">
       {!(
-        location?.pathname === ("signup") ||
-        location?.pathname === ("login")
+        location?.pathname === "/signup" || location?.pathname === "/login"
       ) && (
         <Box sx={{ flexGrow: 1 }}>
           <AppBar position="static">
@@ -89,8 +88,7 @@ export const Topbar = ({ setShowSidebar }) => {
                 display: "flex",
                 justifyContent: "space-between",
                 minHeight: "4rem",
-              }}
-            >
+              }}>
               <Menu>
                 <IconButton
                   size="large"
@@ -98,12 +96,13 @@ export const Topbar = ({ setShowSidebar }) => {
                   color="inherit"
                   aria-label="open drawer"
                   sx={{ mr: 2 }}
-                  onClick={() => setShowSidebar((prev) => !prev)}
-                >
+                  onClick={() => setShowSidebar((prev) => !prev)}>
                   <MenuIcon />
                 </IconButton>
                 <div className={styles.topbar__logo}>
-                  <img src={logo} alt="logo" />
+                  <Link to="/" onClick={() => setSelected("home")}>
+                    <img src={logo} alt="logo" />
+                  </Link>
                 </div>
               </Menu>
               <Search>
@@ -115,10 +114,12 @@ export const Topbar = ({ setShowSidebar }) => {
                   inputProps={{ "aria-label": "search" }}
                 />
               </Search>
-              <ButtonWrapper>
-                <PersonOutlineIcon sx={{ mr: 1.5 }} />
-                Login
-              </ButtonWrapper>
+              <Link to="/login">
+                <ButtonWrapper>
+                  <PersonOutlineIcon sx={{ mr: 1.5 }} />
+                  Login
+                </ButtonWrapper>
+              </Link>
             </Toolbar>
           </AppBar>
         </Box>

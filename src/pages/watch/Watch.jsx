@@ -17,8 +17,6 @@ export const Watch = () => {
       video.categoryName === currentVideo.categoryName && video._id !== slug
   );
 
-  console.log(relatedVideos);
-
   return (
     <main className="wrapper p-1">
       <Grid container>

@@ -58,7 +58,7 @@ export const videos = [
     categoryName: "Glorious V10s",
     title: "CHAOTIC RACE IN SEPANG - 2005 Malaysian Grand Prix",
     thumbnail:
-      "https://res.cloudinary.com/fueledup-ecom/image/upload/v1651319852/Products%20Images/KemmelTube/Video%20Thumbnails/oe1iCcuoHl0.jpg",
+      "https://res.cloudinary.com/fueledup-ecom/image/upload/v1651667634/Products%20Images/KemmelTube/Video%20Thumbnails/sddefault_md5y7k.jpg",
     creator: "F1",
     creatorLogo:
       "https://res.cloudinary.com/fueledup-ecom/image/upload/v1651320097/Products%20Images/KemmelTube/Video%20Creators/formula1.jpg",
@@ -170,7 +170,7 @@ export const videos = [
     categoryName: "Inspector Seb",
     title: "Sebastian Vettel Names EVERY F1 Champion",
     thumbnail:
-      "https://res.cloudinary.com/fueledup-ecom/image/upload/v1651321131/Products%20Images/KemmelTube/Video%20Thumbnails/LH9yXEpoMEw.jpg",
+      "https://res.cloudinary.com/fueledup-ecom/image/upload/v1651667594/Products%20Images/KemmelTube/Video%20Thumbnails/VJ2hlxn11jg.jpg",
     creator: "F1",
     creatorLogo:
       "https://res.cloudinary.com/fueledup-ecom/image/upload/v1651320097/Products%20Images/KemmelTube/Video%20Creators/formula1.jpg",

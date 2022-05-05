@@ -7,12 +7,13 @@ import {
   Typography,
 } from "@mui/material";
 import React, { useState } from "react";
-import { useLocation, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { PasswordInput, RegularTextInput } from "../../components";
 import { useAuth } from "../../context";
 import { handleLogin } from "../../context/auth-context/server-requests";
 
 const CustomFormControl = styled(FormControl)({
+  required: true,
   variant: "outlined",
   width: "100%",
   marginTop: "1rem",
@@ -75,6 +76,10 @@ const ButtonWrapper = styled(Button)(() => ({
 export const Login = () => {
   const [data, setData] = useState({ email: "", password: "" });
   const [loading, setLoading] = useState(false);
+  const [errors, setErrors] = useState({
+    emailError: false,
+    passwordError: false,
+  });
 
   const { authDispatch } = useAuth();
 
@@ -84,9 +89,23 @@ export const Login = () => {
   const handleChange = (e) => {
     const { name, value } = e.target;
     setData((prev) => ({ ...prev, [name]: value }));
+    setErrors((prev) => ({ ...prev, [`${name}Error`]: false }));
+  };
+
+  const handleErrors = () => {
+    if (!data.email.includes("@")) {
+      setErrors((prev) => ({ ...prev, emailError: true }));
+    } else if (data.password.length < 6) {
+      setErrors((prev) => ({ ...prev, passwordError: true }));
+    } else {
+      return true;
+    }
+
+    return false;
   };
 
   const handleSubmit = async () => {
+    if (!handleErrors()) return;
     setLoading(true);
     try {
       await handleLogin(data, authDispatch);
@@ -128,18 +147,22 @@ export const Login = () => {
           <Box component="form" width="35ch">
             <CustomFormControl>
               <RegularTextInput
+                required={true}
                 text={"Email"}
                 name={"email"}
                 value={data.email}
+                error={errors.emailError}
                 handleChange={(e) => handleChange(e)}
               />
             </CustomFormControl>
 
             <CustomFormControl>
               <PasswordInput
+                required={true}
                 text={"Password"}
                 name={"password"}
                 value={data.password}
+                error={errors.passwordError}
                 handleChange={(e) => handleChange(e)}
               />
             </CustomFormControl>
@@ -166,6 +189,32 @@ export const Login = () => {
               }>
               Login as test user
             </ButtonOutlineWrapper>
+          </Box>
+          <Box mt={2} component="div">
+            <Typography
+              color="#fff"
+              fontWeight={400}
+              fontSize="1.1rem"
+              width="fit-content"
+              mx="auto"
+              variant="subtitle1"
+              component="p"
+              gutterBottom>
+              New to KemmelTube?
+            </Typography>
+            <Typography
+              color="#396ff9"
+              fontWeight={400}
+              fontSize="1.1rem"
+              width="fit-content"
+              variant="subtitle1"
+              mx="auto"
+              component={Link}
+              to="/signup"
+              gutterBottom
+              sx={{ textDecoration: "underline", marginLeft: "25%" }}>
+              Create an account
+            </Typography>
           </Box>
         </Box>
       </Box>

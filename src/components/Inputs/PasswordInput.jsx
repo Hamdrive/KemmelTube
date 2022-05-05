@@ -7,7 +7,14 @@ import {
 } from "@mui/material";
 import React, { useState } from "react";
 
-export const PasswordInput = ({ text, name, value, handleChange }) => {
+export const PasswordInput = ({
+  text,
+  name,
+  value,
+  handleChange,
+  required = true,
+  error = false,
+}) => {
   const [showPassword, setShowPassword] = useState(false);
 
   const handleVisibility = () => {
@@ -17,9 +24,15 @@ export const PasswordInput = ({ text, name, value, handleChange }) => {
   return (
     <>
       {" "}
-      <InputLabel htmlFor="outlined-adornment-password">{text}</InputLabel>
+      <InputLabel
+        htmlFor="outlined-adornment-password"
+        required={required}
+        error={error}>
+        {text}
+      </InputLabel>
       <OutlinedInput
-        required
+        error={error}
+        required={required}
         id="outlined-adornment-password"
         name={name}
         type={showPassword ? "text" : "password"}

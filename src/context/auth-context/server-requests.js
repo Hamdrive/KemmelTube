@@ -10,7 +10,7 @@ export const handleSignUp = async (signUpCredentials, authDispatch) => {
     if (res.status === 200 || res.status === 201) {
       const formatData = {
         token: res.data.encodedToken,
-        userData: res.data.foundUser,
+        userData: res.data.createdUser,
       };
 
       localStorage.setItem("userAuthData", JSON.stringify(formatData));

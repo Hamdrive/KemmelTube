@@ -143,10 +143,12 @@ export const Signup = () => {
                 <CustomFormControl>
                   <RegularTextInput
                     required={true}
-                    error={errors.firstNameError}
                     text={"First Name"}
                     name={"firstName"}
                     value={data.firstName}
+                    error={errors.firstNameError}
+                    helperText="Invalid first name"
+                    placeholder="Johnrao"
                     handleChange={(e) => handleChange(e)}
                   />
                 </CustomFormControl>
@@ -158,6 +160,7 @@ export const Signup = () => {
                     text={"Last Name"}
                     name={"lastName"}
                     value={data.lastName}
+                    placeholder="Doekar"
                     handleChange={(e) => handleChange(e)}
                   />
                 </CustomFormControl>
@@ -167,10 +170,12 @@ export const Signup = () => {
             <CustomFormControl>
               <RegularTextInput
                 required={true}
-                error={errors.emailError}
                 text={"Email"}
                 name={"email"}
                 value={data.email}
+                error={errors.emailError}
+                helperText="Invalid email"
+                placeholder="johnrao.doekar@email.com"
                 handleChange={(e) => handleChange(e)}
               />
             </CustomFormControl>
@@ -178,10 +183,12 @@ export const Signup = () => {
             <CustomFormControl>
               <PasswordInput
                 required={true}
-                error={errors.passwordError}
                 text={"Password"}
                 name={"password"}
                 value={data.password}
+                error={errors.passwordError}
+                helperText="Password should be greater than 6 characters"
+                placeholder="johnraodoekar"
                 handleChange={(e) => handleChange(e)}
               />
             </CustomFormControl>

@@ -93,15 +93,21 @@ export const Login = () => {
   };
 
   const handleErrors = () => {
+    let flag = false;
     if (!data.email.includes("@")) {
+      flag = true;
       setErrors((prev) => ({ ...prev, emailError: true }));
-    } else if (data.password.length < 6) {
+    }
+    if (data.password.length < 6) {
+      flag = true;
       setErrors((prev) => ({ ...prev, passwordError: true }));
-    } else {
-      return true;
     }
 
-    return false;
+    if (!flag) {
+      return true;
+    } else {
+      return false;
+    }
   };
 
   const handleSubmit = async () => {
@@ -152,6 +158,8 @@ export const Login = () => {
                 name={"email"}
                 value={data.email}
                 error={errors.emailError}
+                helperText="Invalid email"
+                placeholder="johnrao.doekar@email.com"
                 handleChange={(e) => handleChange(e)}
               />
             </CustomFormControl>
@@ -163,6 +171,8 @@ export const Login = () => {
                 name={"password"}
                 value={data.password}
                 error={errors.passwordError}
+                helperText="Password should be greater than 6 characters"
+                placeholder="johnraodoekar"
                 handleChange={(e) => handleChange(e)}
               />
             </CustomFormControl>

@@ -1,21 +1,27 @@
-import { InputLabel, OutlinedInput } from '@mui/material';
-import React from 'react'
+import { TextField } from "@mui/material";
+import React from "react";
 
-export const RegularTextInput = ({text, name, value, handleChange, required = false, error=false}) => {
+export const RegularTextInput = ({
+  text,
+  name,
+  value,
+  handleChange,
+  placeholder = "",
+  helperText = "Invalid input",
+  required = false,
+  error = false,
+}) => {
   return (
-    <>
-      <InputLabel htmlFor={`outlined-adornment-${name}`} required={required} error={error}>
-        {text}
-      </InputLabel>
-      <OutlinedInput
+    <TextField
+      required={required}
       error={error}
-        required={required}
-        id={`outlined-adornment-${name}`}
-        name={name}
-        value={value}
-        onChange={handleChange}
-        label={text}        
-      />
-    </>
+      id={`outlined-required-${name}`}
+      name={name}
+      label={text}
+      value={value}
+      placeholder={placeholder}
+      helperText={helperText}
+      onChange={handleChange}
+    />
   );
-}
+};

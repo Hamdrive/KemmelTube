@@ -1,10 +1,5 @@
 import { Visibility, VisibilityOff } from "@mui/icons-material";
-import {
-  IconButton,
-  InputAdornment,
-  InputLabel,
-  OutlinedInput,
-} from "@mui/material";
+import { IconButton, InputAdornment, TextField } from "@mui/material";
 import React, { useState } from "react";
 
 export const PasswordInput = ({
@@ -12,7 +7,9 @@ export const PasswordInput = ({
   name,
   value,
   handleChange,
-  required = true,
+  placeholder = "",
+  helperText = "Invalid input",
+  required = false,
   error = false,
 }) => {
   const [showPassword, setShowPassword] = useState(false);
@@ -22,23 +19,19 @@ export const PasswordInput = ({
   };
 
   return (
-    <>
-      {" "}
-      <InputLabel
-        htmlFor="outlined-adornment-password"
-        required={required}
-        error={error}>
-        {text}
-      </InputLabel>
-      <OutlinedInput
-        error={error}
-        required={required}
-        id="outlined-adornment-password"
-        name={name}
-        type={showPassword ? "text" : "password"}
-        value={value}
-        onChange={handleChange}
-        endAdornment={
+    <TextField
+      required={required}
+      error={error}
+      id={`outlined-required-${name}`}
+      name={name}
+      label={text}
+      value={value}
+      placeholder={placeholder}
+      helperText={helperText}
+      onChange={handleChange}
+      type={showPassword ? "text" : "password"}
+      InputProps={{
+        endAdornment: (
           <InputAdornment position="end">
             <IconButton
               sx={{ color: "#fff" }}
@@ -48,9 +41,8 @@ export const PasswordInput = ({
               {showPassword ? <VisibilityOff /> : <Visibility />}
             </IconButton>
           </InputAdornment>
-        }
-        label={text}
-      />
-    </>
+        ),
+      }}
+    />
   );
 };

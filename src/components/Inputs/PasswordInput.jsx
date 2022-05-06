@@ -30,6 +30,7 @@ export const PasswordInput = ({
       helperText={helperText}
       onChange={handleChange}
       type={showPassword ? "text" : "password"}
+      autoComplete="off"
       InputProps={{
         endAdornment: (
           <InputAdornment position="end">

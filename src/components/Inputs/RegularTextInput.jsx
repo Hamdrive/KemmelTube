@@ -22,6 +22,7 @@ export const RegularTextInput = ({
       placeholder={placeholder}
       helperText={helperText}
       onChange={handleChange}
+      autoComplete="off"
     />
   );
 };

@@ -84,17 +84,24 @@ export const Signup = () => {
   };
 
   const handleErrors = () => {
+    let flag = false;
     if (data.firstName.length < 6) {
+      flag = true;
       setErrors((prev) => ({ ...prev, firstNameError: true }));
-    } else if (!data.email.includes("@")) {
-      setErrors((prev) => ({ ...prev, emailError: true }));
-    } else if (data.password.length < 6) {
-      setErrors((prev) => ({ ...prev, passwordError: true }));
-    } else {
-      return true;
     }
-
-    return false;
+    if (!data.email.includes("@")) {
+      flag = true;
+      setErrors((prev) => ({ ...prev, emailError: true }));
+    }
+    if (data.password.length < 6) {
+      flag = true;
+      setErrors((prev) => ({ ...prev, passwordError: true }));
+    }
+    if (!flag) {
+      return true;
+    } else {
+      return false;
+    }
   };
 
   const handleSubmit = async () => {

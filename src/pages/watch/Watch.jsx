@@ -2,13 +2,18 @@ import React from "react";
 import { Grid, Typography } from "@mui/material";
 import { RelatedVideoCard, SingleVideoCard } from "../../components";
 import { useParams } from "react-router-dom";
-import { useVideo } from "../../context";
+import { useAuth, useVideo } from "../../context";
 
 export const Watch = () => {
   const { slug } = useParams();
   const {
     videoState: { videos },
+    videoDispatch,
+    setHistory,
   } = useVideo();
+  const {
+    authState: { token },
+  } = useAuth();
 
   const currentVideo = videos?.find((video) => video._id === slug);
 
@@ -17,16 +22,22 @@ export const Watch = () => {
       video.categoryName === currentVideo.categoryName && video._id !== slug
   );
 
+  const updateHistory = (video) => {
+    token && setHistory(token, video, videoDispatch);
+  };
   return (
     <main className="wrapper p-1">
       <Grid container>
-        <SingleVideoCard
-          slug={slug}
-          title={currentVideo?.title}
-          creator={currentVideo?.creator}
-          creatorLogo={currentVideo?.creatorLogo}
-          description={currentVideo?.description}
-        />
+        <Grid item xs={12} md={8} lg={9} px={1}>
+          <SingleVideoCard
+            slug={slug}
+            title={currentVideo?.title}
+            creator={currentVideo?.creator}
+            creatorLogo={currentVideo?.creatorLogo}
+            description={currentVideo?.description}
+            setHistory={() => updateHistory(currentVideo)}
+          />
+        </Grid>
         <Grid item xs={12} md={4} lg={3} p={1}>
           <Typography
             color="#fff"
@@ -44,6 +55,7 @@ export const Watch = () => {
               thumbnail={video.thumbnail}
               creator={video.creator}
               creatorLogo={video.creatorLogo}
+              setHistory={() => updateHistory(video)}
             />
           ))}
         </Grid>

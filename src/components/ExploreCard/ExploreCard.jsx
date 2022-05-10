@@ -5,13 +5,23 @@ import {
   CardContent,
   CardMedia,
   Grid,
+  IconButton,
   Typography,
 } from "@mui/material";
 import { Box } from "@mui/system";
 import React from "react";
 import { Link } from "react-router-dom";
+import DeleteIcon from "@mui/icons-material/Delete";
 
-export const ExploreCard = ({ title, thumbnail, creator, creatorLogo, slug }) => {
+export const ExploreCard = ({
+  title,
+  thumbnail,
+  creator,
+  creatorLogo,
+  slug,
+  location,
+  handleIconAction,
+}) => {
   return (
     <Grid
       item
@@ -27,15 +37,12 @@ export const ExploreCard = ({ title, thumbnail, creator, creatorLogo, slug }) =>
         width: "100%",
         display: "flex",
         flexDirection: "column",
-      }}
-    >
-      
+        position: "relative",
+      }}>
       <CardActionArea
         component={Link}
         to={`/watch/${slug}`}
-        sx={{ height: "100%", display: "flex", flexDirection: "column" }}
-
-      >
+        sx={{ height: "100%", display: "flex", flexDirection: "column" }}>
         <CardMedia
           component="img"
           height="175"
@@ -50,15 +57,13 @@ export const ExploreCard = ({ title, thumbnail, creator, creatorLogo, slug }) =>
             justifyContent: "space-between",
             flexGrow: 1,
             width: "100%",
-          }}
-        >
+          }}>
           <Typography
             color="#fff"
             fontWeight={600}
             gutterBottom
             variant="h6"
-            component="div"
-          >
+            component="div">
             {title}
           </Typography>
           <Box
@@ -66,8 +71,7 @@ export const ExploreCard = ({ title, thumbnail, creator, creatorLogo, slug }) =>
               display: "flex",
               justifyContent: "flex-start",
               alignItems: "center",
-            }}
-          >
+            }}>
             <Avatar
               alt="creator logo"
               src={creatorLogo}
@@ -79,6 +83,21 @@ export const ExploreCard = ({ title, thumbnail, creator, creatorLogo, slug }) =>
           </Box>
         </CardContent>
       </CardActionArea>
+      <IconButton
+        onClick={handleIconAction}
+        sx={{
+          "&:hover": {
+            backgroundColor:
+              location === "history" ? "#f4433666" : "transparent",
+          },
+          position: "absolute",
+          top: "2%",
+          right: "2%",
+        }}>
+        {location === "history" ? (
+          <DeleteIcon sx={{ color: "#f44336", fontSize: "1.75rem" }} />
+        ) : null}
+      </IconButton>
     </Grid>
   );
 };

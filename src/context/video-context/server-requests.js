@@ -1,8 +1,17 @@
 import axios from "axios";
 import { constants } from "../../constants/constants";
 
-const { videos, categories, history, playlists, likedVideos, watchLater } =
-  constants;
+const {
+  videos,
+  categories,
+  history,
+  addToHistory,
+  deleteHistory,
+  deleteAllHistory,
+  playlists,
+  likedVideos,
+  watchLater,
+} = constants;
 
 export const getVideos = async (videoDispatch) => {
   try {
@@ -31,6 +40,48 @@ export const getHistory = async (videoDispatch) => {
     const res = await JSON.parse(localStorage.getItem("userAuthData")).userData;
 
     videoDispatch({ type: history, payload: res.history });
+  } catch (error) {
+    throw new Error(error);
+  }
+};
+
+export const setHistory = async (token, video, videoDispatch) => {
+  try {
+    const res = await axios.post(
+      "/api/user/history",
+      { video },
+      { headers: { authorization: token } }
+    );
+    if (res.status == 200 || res.status === 201) {
+      videoDispatch({ type: addToHistory, payload: res.data.history });
+    }
+  } catch (error) {
+    throw new Error(error);
+  }
+};
+
+export const deleteFromHistory = async (token, videoId, videoDispatch) => {
+  try {
+    const res = await axios.delete(`/api/user/history/${videoId}`, {
+      headers: { authorization: token },
+    });
+
+    if (res.status == 200 || res.status === 201) {
+      videoDispatch({ type: deleteHistory, payload: res.data.history });
+    }
+  } catch (error) {
+    throw new Error(error);
+  }
+};
+
+export const clearAllHistory = async (token, videoDispatch) => {
+  try {
+    const res = await axios.delete("/api/user/history/all", {
+      headers: { authorization: token },
+    });
+    if (res.status == 200 || res.status === 201) {
+      videoDispatch({ type: deleteAllHistory, payload: res.data.history });
+    }
   } catch (error) {
     throw new Error(error);
   }

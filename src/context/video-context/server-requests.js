@@ -6,6 +6,7 @@ const {
   categories,
   history,
   addToHistory,
+  deleteAllHistory,
   playlists,
   likedVideos,
   watchLater,
@@ -57,6 +58,19 @@ export const setHistory = async (token, video, videoDispatch) => {
     throw new Error(error);
   }
 };
+
+export const clearAllHistory = async(token, videoDispatch) => {
+  try {
+    const res = await axios.delete("/api/user/history/all", {
+      headers: { authorization: token },
+    });
+    if (res.status == 200 || res.status === 201) {
+      videoDispatch({ type: deleteAllHistory, payload: res.data.history });
+    }
+  } catch (error) {
+    throw new Error(error);
+  }
+}
 
 export const getPlaylists = async (videoDispatch) => {
   try {

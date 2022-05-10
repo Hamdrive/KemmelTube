@@ -7,12 +7,15 @@ import { useAuth, useVideo } from "../../context";
 export const Watch = () => {
   const { slug } = useParams();
   const {
-    videoState: { videos, likedVideos },
+    videoState: { videos, likedVideos, watchLater },
     videoDispatch,
     setHistory,
     setLikedVideos,
     deleteFromLikedVideos,
+    setWatchLater,
+    deleteFromWatchLater,
   } = useVideo();
+
   const {
     authState: { token },
   } = useAuth();
@@ -26,9 +29,14 @@ export const Watch = () => {
 
   const isLiked = likedVideos?.some((video) => video._id === currentVideo._id);
 
+  const isWatchLater = watchLater?.some(
+    (video) => video._id === currentVideo._id
+  );
+
   const updateHistory = (video) => {
     token && setHistory(token, video, videoDispatch);
   };
+
   const updateLikedVideos = (video) => {
     token && setLikedVideos(token, video, videoDispatch);
   };
@@ -36,6 +44,15 @@ export const Watch = () => {
   const handleDeleteFromLikedVideos = (videoId) => {
     deleteFromLikedVideos(token, videoId, videoDispatch);
   };
+
+  const updateWatchLater = (video) => {
+    token && setWatchLater(token, video, videoDispatch);
+  };
+
+  const handleDeleteFromWatchLater = (videoId) => {
+    deleteFromWatchLater(token, videoId, videoDispatch);
+  };
+
   return (
     <main className="wrapper p-1">
       <Grid container>
@@ -53,6 +70,12 @@ export const Watch = () => {
                 : () => updateLikedVideos(currentVideo)
             }
             isLiked={isLiked}
+            setWatchLater={
+              isWatchLater
+                ? () => handleDeleteFromWatchLater(currentVideo._id)
+                : () => updateWatchLater(currentVideo)
+            }
+            isWatchLater={isWatchLater}
           />
         </Grid>
         <Grid item xs={12} md={4} lg={3} p={1}>

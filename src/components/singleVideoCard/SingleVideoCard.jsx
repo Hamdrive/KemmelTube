@@ -5,6 +5,7 @@ import { Box } from "@mui/system";
 import ThumbUpAltIcon from "@mui/icons-material/ThumbUpAlt";
 import ThumbUpOffAltIcon from "@mui/icons-material/ThumbUpOffAlt";
 import WatchLaterIcon from "@mui/icons-material/WatchLater";
+import AccessTimeIcon from "@mui/icons-material/AccessTime";
 import PlaylistAddIcon from "@mui/icons-material/PlaylistAdd";
 import styled from "@emotion/styled";
 // import PlaylistAddCheckIcon from "@mui/icons-material/PlaylistAddCheck";
@@ -18,6 +19,8 @@ export const SingleVideoCard = ({
   setHistory,
   setLikedVideos,
   isLiked,
+  setWatchLater,
+  isWatchLater,
 }) => {
   const opts = {
     height: "500",
@@ -34,12 +37,16 @@ export const SingleVideoCard = ({
       name: isLiked ? "Liked" : "Like",
       title: "Like video",
       icon: isLiked ? <ThumbUpAltIcon /> : <ThumbUpOffAltIcon />,
+      clickEvent: setLikedVideos,
+      exists: isLiked,
     },
     {
       id: 2,
-      name: "Watch Later",
+      name: isWatchLater ? "Added to Watch Later" : "Watch Later",
       title: "Save the video for later",
-      icon: <WatchLaterIcon />,
+      icon: isWatchLater ? <WatchLaterIcon /> : <AccessTimeIcon />,
+      clickEvent: setWatchLater,
+      exists: isWatchLater,
     },
     {
       id: 3,
@@ -56,6 +63,8 @@ export const SingleVideoCard = ({
       color: "#fff",
     },
     color: "#fff",
+    fontSize: 16,
+    fontWeight: 500,
   }));
 
   return (
@@ -71,18 +80,19 @@ export const SingleVideoCard = ({
           component="div">
           {title}
         </Typography>
-        <Box display={"flex"} justifyContent={"flex-end"} py={1}>
+        <Box
+          display={"flex"}
+          justifyContent={"flex-end"}
+          flexWrap="wrap"
+          py={1}>
           {videoActions.map((action) => (
             <ButtonWrapper
               startIcon={action.icon}
               key={action.id}
-              onClick={setLikedVideos}
+              onClick={action.clickEvent}
               sx={{
-                fontSize: 16,
-                color: "#fff",
-                backgroundColor: "#373C43",
-                fontWeight: 500,
-                mx: 1,
+                backgroundColor: action.exists ? "#396ff9" : "#373C43",
+                m: 1,
               }}>
               {action.name}
             </ButtonWrapper>

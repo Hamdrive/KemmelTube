@@ -13,6 +13,8 @@ const {
   addToLikedVideos,
   removeFromLikedVideos,
   watchLater,
+  addToWatchLater,
+  removeFromWatchLater,
 } = constants;
 
 export const getVideos = async (videoDispatch) => {
@@ -143,6 +145,38 @@ export const getWatchLater = async (videoDispatch) => {
     const res = await JSON.parse(localStorage.getItem("userAuthData")).userData;
 
     videoDispatch({ type: watchLater, payload: res.watchlater });
+  } catch (error) {
+    throw new Error(error);
+  }
+};
+
+export const setWatchLater = async (token, video, videoDispatch) => {
+  try {
+    const res = await axios.post(
+      "/api/user/watchlater",
+      { video },
+      { headers: { authorization: token } }
+    );
+    if (res.status == 200 || res.status === 201) {
+      videoDispatch({ type: addToWatchLater, payload: res.data.watchlater });
+    }
+  } catch (error) {
+    throw new Error(error);
+  }
+};
+
+export const deleteFromWatchLater = async (token, videoId, videoDispatch) => {
+  try {
+    const res = await axios.delete(`/api/user/watchlater/${videoId}`, {
+      headers: { authorization: token },
+    });
+
+    if (res.status == 200 || res.status === 201) {
+      videoDispatch({
+        type: removeFromWatchLater,
+        payload: res.data.watchlater,
+      });
+    }
   } catch (error) {
     throw new Error(error);
   }

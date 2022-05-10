@@ -9,6 +9,8 @@ import {
   getPlaylists,
   getVideos,
   getWatchLater,
+  setWatchLater,
+  deleteFromWatchLater,
   setHistory,
   deleteFromHistory,
   clearAllHistory,
@@ -66,6 +68,8 @@ const VideoProvider = ({ children }) => {
     deleteFromHistory,
     setLikedVideos,
     deleteFromLikedVideos,
+    setWatchLater,
+    deleteFromWatchLater,
   };
 
   return (

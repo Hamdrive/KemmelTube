@@ -8,6 +8,7 @@ export const History = () => {
   const {
     videoState: { history },
     videoDispatch,
+    deleteFromHistory,
     clearAllHistory,
   } = useVideo();
 
@@ -17,6 +18,10 @@ export const History = () => {
 
   const handleClear = () => {
     clearAllHistory(token, videoDispatch);
+  };
+
+  const handleDeleteFromHistory = (videoId) => {
+    deleteFromHistory(token, videoId, videoDispatch);
   };
 
   useEffect(() => {
@@ -44,6 +49,8 @@ export const History = () => {
               thumbnail={video.thumbnail}
               creator={video.creator}
               creatorLogo={video.creatorLogo}
+              location="history"
+              handleIconAction={() => handleDeleteFromHistory(video._id)}
             />
           ))}
         </Grid>

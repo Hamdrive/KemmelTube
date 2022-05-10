@@ -25,7 +25,6 @@ export const Watch = () => {
   const updateHistory = (video) => {
     token && setHistory(token, video, videoDispatch);
   };
-
   return (
     <main className="wrapper p-1">
       <Grid container>

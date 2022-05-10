@@ -11,6 +11,7 @@ import { RegularTextInput } from "./Inputs/RegularTextInput";
 import { PasswordInput } from "./Inputs/PasswordInput";
 import { PageHeader } from "./pageHeader/PageHeader";
 import { EmptyResult } from "./emptyResult/EmptyResult";
+import { PrivateCard } from "./PrivateCard/PrivateCard";
 
 export {
   Navbar,
@@ -26,4 +27,5 @@ export {
   PasswordInput,
   PageHeader,
   EmptyResult,
+  PrivateCard,
 };

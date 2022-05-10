@@ -13,6 +13,7 @@ import {
   WatchLater,
 } from "../pages";
 import { RedirectAuth } from "./RedirectAuth";
+import { RequireAuth } from "./RequireAuth";
 
 const Router = () => {
   return (
@@ -26,7 +27,7 @@ const Router = () => {
         <Route path="/signup" element={<Signup />} />
       </Route>
 
-      <Route element={<RedirectAuth />}>
+      <Route element={<RequireAuth />}>
         <Route path="/history" element={<History />} />
         <Route path="/playlists" element={<Playlists />} />
         <Route path="/watchLater" element={<WatchLater />} />

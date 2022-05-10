@@ -11,10 +11,15 @@ import Button from "@mui/material/Button";
 import PersonOutlineIcon from "@mui/icons-material/PersonOutline";
 import logo from "../../assets/KemmelTube.svg";
 import styles from "./NavigationWrapper.module.css";
-import { useLocation } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
+import { useAuth } from "../../context";
 
-export const Topbar = ({ setShowSidebar }) => {
+export const Topbar = ({ setShowSidebar, setSelected, handleLogout }) => {
   const location = useLocation();
+
+  const {
+    authState: { token },
+  } = useAuth();
 
   const Menu = styled("div")(({ theme }) => ({
     [theme.breakpoints.up(1024)]: {
@@ -66,46 +71,47 @@ export const Topbar = ({ setShowSidebar }) => {
 
   const ButtonWrapper = styled(Button)(() => ({
     "&:hover": {
-      backgroundColor: "#396ff9",
-      borderColor: "#396ff9",
+      backgroundColor: token ? "#f44336" : "#396ff9",
+      borderColor: token ? "#f44336" : "#396ff9",
     },
     color: "#fff",
     borderWidth: "1px",
     borderStyle: "solid",
     borderColor: "#fff",
+    marginLeft: "auto",
   }));
 
   return (
     <div className="topbar">
-      {!(
-        location?.pathname === ("signup") ||
-        location?.pathname === ("login")
-      ) && (
-        <Box sx={{ flexGrow: 1 }}>
-          <AppBar position="static">
-            <Toolbar
-              sx={{
-                bgcolor: "#181b21",
-                display: "flex",
-                justifyContent: "space-between",
-                minHeight: "4rem",
-              }}
-            >
-              <Menu>
-                <IconButton
-                  size="large"
-                  edge="start"
-                  color="inherit"
-                  aria-label="open drawer"
-                  sx={{ mr: 2 }}
-                  onClick={() => setShowSidebar((prev) => !prev)}
-                >
-                  <MenuIcon />
-                </IconButton>
-                <div className={styles.topbar__logo}>
+      <Box sx={{ flexGrow: 1 }}>
+        <AppBar position="static">
+          <Toolbar
+            sx={{
+              bgcolor: "#181b21",
+              display: "flex",
+              justifyContent: "space-between",
+              minHeight: "4rem",
+            }}>
+            <Menu>
+              <IconButton
+                size="large"
+                edge="start"
+                color="inherit"
+                aria-label="open drawer"
+                sx={{ mr: 2 }}
+                onClick={() => setShowSidebar((prev) => !prev)}>
+                <MenuIcon />
+              </IconButton>
+              <div className={styles.topbar__logo}>
+                <Link to="/" onClick={() => setSelected("home")}>
                   <img src={logo} alt="logo" />
-                </div>
-              </Menu>
+                </Link>
+              </div>
+            </Menu>
+            {!(
+              location?.pathname === "/signup" ||
+              location?.pathname === "/login"
+            ) && (
               <Search>
                 <SearchIconWrapper>
                   <SearchIcon />
@@ -115,14 +121,21 @@ export const Topbar = ({ setShowSidebar }) => {
                   inputProps={{ "aria-label": "search" }}
                 />
               </Search>
-              <ButtonWrapper>
-                <PersonOutlineIcon sx={{ mr: 1.5 }} />
+            )}
+            {token ? (
+              <ButtonWrapper onClick={handleLogout}>
+                <PersonOutlineIcon sx={{ mr: 1 }} />
+                Logout
+              </ButtonWrapper>
+            ) : (
+              <ButtonWrapper component={Link} to="/login">
+                <PersonOutlineIcon sx={{ mr: 1 }} />
                 Login
               </ButtonWrapper>
-            </Toolbar>
-          </AppBar>
-        </Box>
-      )}
+            )}
+          </Toolbar>
+        </AppBar>
+      </Box>
     </div>
   );
 };

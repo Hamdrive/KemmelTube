@@ -7,6 +7,8 @@ import { CategoryFilter } from "./categoryFilter/CategoryFilter";
 import { NavigationWrapper } from "./navigationWrapper/NavigationWrapper";
 import { SingleVideoCard } from "./singleVideoCard/SingleVideoCard";
 import { RelatedVideoCard } from "./relatedVideoCard/RelatedVideoCard";
+import { RegularTextInput } from "./Inputs/RegularTextInput";
+import { PasswordInput } from "./Inputs/PasswordInput";
 
 export {
   Navbar,
@@ -18,4 +20,6 @@ export {
   CategoryFilter,
   SingleVideoCard,
   RelatedVideoCard,
+  RegularTextInput,
+  PasswordInput,
 };

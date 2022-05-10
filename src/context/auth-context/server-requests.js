@@ -1,11 +1,7 @@
 import axios from "axios";
-import { useLocation, useNavigate } from "react-router-dom";
 import { constants } from "../../constants/constants";
 
 const { login, logout, signup } = constants;
-
-const navigate = useNavigate();
-const location = useLocation();
 
 export const handleSignUp = async (signUpCredentials, authDispatch) => {
   try {
@@ -14,14 +10,12 @@ export const handleSignUp = async (signUpCredentials, authDispatch) => {
     if (res.status === 200 || res.status === 201) {
       const formatData = {
         token: res.data.encodedToken,
-        userData: res.data.foundUser,
+        userData: res.data.createdUser,
       };
 
       localStorage.setItem("userAuthData", JSON.stringify(formatData));
 
       authDispatch({ type: signup, payload: formatData });
-
-      navigate(location?.state?.from?.pathname || "/", { replace: true });
     }
   } catch (error) {
     throw new Error(error);
@@ -40,8 +34,6 @@ export const handleLogin = async (loginCredentials, authDispatch) => {
       localStorage.setItem("userAuthData", JSON.stringify(formatData));
 
       authDispatch({ type: login, payload: formatData });
-
-      navigate(location?.state?.from?.pathname || "/", { replace: true });
     }
   } catch (error) {
     throw new Error(error);
@@ -51,6 +43,4 @@ export const handleLogin = async (loginCredentials, authDispatch) => {
 export const handleLogout = (authDispatch) => {
   localStorage.removeItem("userAuthData");
   authDispatch({ type: logout });
-
-  navigate("/", { replace: true });
 };

@@ -1,5 +1,5 @@
 import React from "react";
-import { Avatar, Button, Divider, Grid, Typography } from "@mui/material";
+import { Avatar, Button, Divider, Typography } from "@mui/material";
 import YouTube from "react-youtube";
 import { Box } from "@mui/system";
 import ThumbUpAltIcon from "@mui/icons-material/ThumbUpAlt";
@@ -14,6 +14,7 @@ export const SingleVideoCard = ({
   creator,
   creatorLogo,
   description,
+  setHistory,
 }) => {
   const opts = {
     height: "500",
@@ -46,8 +47,8 @@ export const SingleVideoCard = ({
   ];
 
   return (
-    <Grid item xs={12} md={8} lg={9} px={1}>
-      <YouTube videoId={slug} opts={opts} />
+    <>
+      <YouTube videoId={slug} opts={opts} onPlay={setHistory} />
       <Box>
         <Typography
           color="#fff"
@@ -108,6 +109,6 @@ export const SingleVideoCard = ({
           </Typography>
         </Box>
       </Box>
-    </Grid>
+    </>
   );
 };

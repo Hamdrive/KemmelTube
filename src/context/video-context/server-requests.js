@@ -1,8 +1,15 @@
 import axios from "axios";
 import { constants } from "../../constants/constants";
 
-const { videos, categories, history, playlists, likedVideos, watchLater } =
-  constants;
+const {
+  videos,
+  categories,
+  history,
+  addToHistory,
+  playlists,
+  likedVideos,
+  watchLater,
+} = constants;
 
 export const getVideos = async (videoDispatch) => {
   try {
@@ -31,6 +38,21 @@ export const getHistory = async (videoDispatch) => {
     const res = await JSON.parse(localStorage.getItem("userAuthData")).userData;
 
     videoDispatch({ type: history, payload: res.history });
+  } catch (error) {
+    throw new Error(error);
+  }
+};
+
+export const setHistory = async (token, video, videoDispatch) => {
+  try {
+    const res = await axios.post(
+      "/api/user/history",
+      { video },
+      { headers: { authorization: token } }
+    );
+    if (res.status == 200 || res.status === 201) {
+      videoDispatch({ type: addToHistory, payload: res.data.history });
+    }
   } catch (error) {
     throw new Error(error);
   }

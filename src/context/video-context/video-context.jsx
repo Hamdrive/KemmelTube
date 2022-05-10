@@ -7,6 +7,7 @@ import {
   getPlaylists,
   getVideos,
   getWatchLater,
+  setHistory,
 } from "./server-requests.js";
 import { filterVideos } from "./filterVideos";
 import { constants } from "../../constants/constants";
@@ -53,7 +54,7 @@ const VideoProvider = ({ children }) => {
     }
   }, []);
 
-  const value = { videoState, videoDispatch };
+  const value = { videoState, videoDispatch, setHistory };
 
   return (
     <VideoContext.Provider value={value}>{children}</VideoContext.Provider>

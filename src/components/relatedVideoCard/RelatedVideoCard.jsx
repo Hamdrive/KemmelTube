@@ -18,6 +18,7 @@ export const RelatedVideoCard = ({
   creator,
   creatorLogo,
   slug,
+  setHistory,
 }) => {
   // to check for screen size
   const theme = useTheme();
@@ -33,6 +34,7 @@ export const RelatedVideoCard = ({
       <CardActionArea
         component={Link}
         to={`/watch/${slug}`}
+        onClick={setHistory}
         sx={{
           height: "100%",
           display: "flex",

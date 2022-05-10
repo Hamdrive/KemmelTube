@@ -1,6 +1,6 @@
 import { Grid } from "@mui/material";
 import React from "react";
-import { EmptyResult, ExploreCard, PageHeader } from "../../components";
+import { EmptyResult, PageHeader, PrivateCard } from "../../components";
 import { useAuth, useVideo } from "../../context";
 
 export const Liked = () => {
@@ -27,7 +27,7 @@ export const Liked = () => {
           sx={{ gap: 3 }}
           container>
           {likedVideos.map((video) => (
-            <ExploreCard
+            <PrivateCard
               key={video.id}
               slug={video._id}
               title={video.title}

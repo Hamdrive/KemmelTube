@@ -9,6 +9,8 @@ import { SingleVideoCard } from "./singleVideoCard/SingleVideoCard";
 import { RelatedVideoCard } from "./relatedVideoCard/RelatedVideoCard";
 import { RegularTextInput } from "./Inputs/RegularTextInput";
 import { PasswordInput } from "./Inputs/PasswordInput";
+import { PageHeader } from "./pageHeader/PageHeader";
+import { EmptyResult } from "./emptyResult/EmptyResult";
 
 export {
   Navbar,
@@ -22,4 +24,6 @@ export {
   RelatedVideoCard,
   RegularTextInput,
   PasswordInput,
+  PageHeader,
+  EmptyResult,
 };

@@ -69,7 +69,6 @@ export const addVideoToHistoryHandler = function (schema, request) {
     } else {
       user.history.unshift(video);
     }
-    console.log(user.history);
     return new Response(201, {}, { history: user.history });
   } catch (error) {
     return new Response(

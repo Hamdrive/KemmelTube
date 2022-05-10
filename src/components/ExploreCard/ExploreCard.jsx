@@ -94,7 +94,7 @@ export const ExploreCard = ({
           top: "2%",
           right: "2%",
         }}>
-        {location === "history" ? (
+        {["history", "likedVideos", "watchLater"].includes(location) ? (
           <DeleteIcon sx={{ color: "#f44336", fontSize: "1.75rem" }} />
         ) : null}
       </IconButton>

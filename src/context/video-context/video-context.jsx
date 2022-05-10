@@ -4,6 +4,8 @@ import {
   getCategories,
   getHistory,
   getLikedVideos,
+  setLikedVideos,
+  deleteFromLikedVideos,
   getPlaylists,
   getVideos,
   getWatchLater,
@@ -62,6 +64,8 @@ const VideoProvider = ({ children }) => {
     setHistory,
     clearAllHistory,
     deleteFromHistory,
+    setLikedVideos,
+    deleteFromLikedVideos,
   };
 
   return (

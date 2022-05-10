@@ -3,9 +3,10 @@ import { Avatar, Button, Divider, Typography } from "@mui/material";
 import YouTube from "react-youtube";
 import { Box } from "@mui/system";
 import ThumbUpAltIcon from "@mui/icons-material/ThumbUpAlt";
-// import ThumbUpOffAltIcon from "@mui/icons-material/ThumbUpOffAlt";
+import ThumbUpOffAltIcon from "@mui/icons-material/ThumbUpOffAlt";
 import WatchLaterIcon from "@mui/icons-material/WatchLater";
 import PlaylistAddIcon from "@mui/icons-material/PlaylistAdd";
+import styled from "@emotion/styled";
 // import PlaylistAddCheckIcon from "@mui/icons-material/PlaylistAddCheck";
 
 export const SingleVideoCard = ({
@@ -15,6 +16,8 @@ export const SingleVideoCard = ({
   creatorLogo,
   description,
   setHistory,
+  setLikedVideos,
+  isLiked,
 }) => {
   const opts = {
     height: "500",
@@ -28,9 +31,9 @@ export const SingleVideoCard = ({
   const videoActions = [
     {
       id: 1,
-      name: "Like",
+      name: isLiked ? "Liked" : "Like",
       title: "Like video",
-      icon: <ThumbUpAltIcon />,
+      icon: isLiked ? <ThumbUpAltIcon /> : <ThumbUpOffAltIcon />,
     },
     {
       id: 2,
@@ -45,6 +48,15 @@ export const SingleVideoCard = ({
       icon: <PlaylistAddIcon />,
     },
   ];
+
+  const ButtonWrapper = styled(Button)(() => ({
+    "&:hover": {
+      backgroundColor: "#396ff9",
+      borderColor: "#396ff9",
+      color: "#fff",
+    },
+    color: "#fff",
+  }));
 
   return (
     <>
@@ -61,9 +73,10 @@ export const SingleVideoCard = ({
         </Typography>
         <Box display={"flex"} justifyContent={"flex-end"} py={1}>
           {videoActions.map((action) => (
-            <Button
+            <ButtonWrapper
               startIcon={action.icon}
               key={action.id}
+              onClick={setLikedVideos}
               sx={{
                 fontSize: 16,
                 color: "#fff",
@@ -72,7 +85,7 @@ export const SingleVideoCard = ({
                 mx: 1,
               }}>
               {action.name}
-            </Button>
+            </ButtonWrapper>
           ))}
         </Box>
         <Divider sx={{ height: "1rem", borderColor: "#fff", fill: "#fff" }} />

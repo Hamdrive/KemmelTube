@@ -12,6 +12,7 @@ import { PasswordInput } from "./Inputs/PasswordInput";
 import { PageHeader } from "./pageHeader/PageHeader";
 import { EmptyResult } from "./emptyResult/EmptyResult";
 import { PrivateCard } from "./PrivateCard/PrivateCard";
+import {PlaylistModal} from "./playlistModal/PlaylistModal"
 
 export {
   Navbar,
@@ -28,4 +29,5 @@ export {
   PageHeader,
   EmptyResult,
   PrivateCard,
+  PlaylistModal
 };

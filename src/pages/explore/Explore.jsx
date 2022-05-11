@@ -1,10 +1,12 @@
 import { Grid } from "@mui/material";
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { CategoryFilter, ExploreCard } from "../../components";
+import { CategoryFilter, ExploreCard, PlaylistModal } from "../../components";
 import { useAuth, useVideo } from "../../context";
 
 export const Explore = () => {
+    const { modal, setModal } = useAuth();
+
   const {
     videoState: { filteredVideos, filters },
     videoDispatch,
@@ -29,6 +31,7 @@ export const Explore = () => {
         });
   };
 
+
   return (
     <main className="wrapper p-1">
       <CategoryFilter
@@ -51,9 +54,11 @@ export const Explore = () => {
             watchLater={true}
             handlePlaylist={() => handleExplore(video, "playlist")}
             playlist={true}
+            setModal={setModal}
           />
         ))}
       </Grid>
+      {modal && <PlaylistModal modal={modal} setModal={setModal} />}
     </main>
   );
 };

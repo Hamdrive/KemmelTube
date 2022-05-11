@@ -11,21 +11,23 @@ export const Explore = () => {
     setWatchLater,
   } = useVideo();
 
-    const {
-      authState: { token },
-    } = useAuth();
+  const {
+    authState: { token },
+  } = useAuth();
 
-    const navigate = useNavigate()
+  const navigate = useNavigate();
 
   const [selectedCategory, setSelectedCategory] = useState(filters ?? "All");
 
-    const updateWatchLater = (video) => {
-      token
+  const handleExplore = (video, route) => {
+    token
+      ? route === "watchLater"
         ? setWatchLater(token, video, videoDispatch)
-        : navigate("/login", {
-            replace: true,
-          });
-    };
+        : null
+      : navigate("/login", {
+          replace: true,
+        });
+  };
 
   return (
     <main className="wrapper p-1">
@@ -45,8 +47,10 @@ export const Explore = () => {
             thumbnail={video.thumbnail}
             creator={video.creator}
             creatorLogo={video.creatorLogo}
-            handleIconAction={() => updateWatchLater(video)}
-            iconFor="watchLater"
+            handleWatchLater={() => handleExplore(video, "watchLater")}
+            watchLater={true}
+            handlePlaylist={() => handleExplore(video, "playlist")}
+            playlist={true}
           />
         ))}
       </Grid>

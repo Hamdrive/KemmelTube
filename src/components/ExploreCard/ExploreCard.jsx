@@ -20,8 +20,10 @@ export const ExploreCard = ({
   creator,
   creatorLogo,
   slug,
-  iconFor,
-  handleIconAction,
+  handleWatchLater,
+  watchLater,
+  // handlePlaylist,
+  // playlist
 }) => {
   return (
     <Grid
@@ -84,9 +86,9 @@ export const ExploreCard = ({
           </Box>
         </CardContent>
       </CardActionArea>
-      {iconFor === "watchLater" && (
+      {watchLater && (
         <IconButton
-          onClick={handleIconAction}
+          onClick={handleWatchLater}
           sx={{
             "&:hover": {
               backgroundColor:"#373c434d",
@@ -96,7 +98,7 @@ export const ExploreCard = ({
             top: "2%",
             right: "2%",
           }}>
-          <WatchLaterIcon sx={{ color: "#373c43", fontSize: "1.75rem" }} />
+          <WatchLaterIcon sx={{ color: "#373c43", fontSize: "1.5rem" }} />
         </IconButton>
       )}
     </Grid>

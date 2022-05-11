@@ -10,6 +10,8 @@ const {
   deleteAllHistory,
   playlists,
   likedVideos,
+  addToLikedVideos,
+  removeFromLikedVideos,
   watchLater,
 } = constants;
 
@@ -102,6 +104,35 @@ export const getLikedVideos = async (videoDispatch) => {
     const res = await JSON.parse(localStorage.getItem("userAuthData")).userData;
 
     videoDispatch({ type: likedVideos, payload: res.likes });
+  } catch (error) {
+    throw new Error(error);
+  }
+};
+
+export const setLikedVideos = async (token, video, videoDispatch) => {
+  try {
+    const res = await axios.post(
+      "/api/user/likes",
+      { video },
+      { headers: { authorization: token } }
+    );
+    if (res.status == 200 || res.status === 201) {
+      videoDispatch({ type: addToLikedVideos, payload: res.data.likes });
+    }
+  } catch (error) {
+    throw new Error(error);
+  }
+};
+
+export const deleteFromLikedVideos = async (token, videoId, videoDispatch) => {
+  try {
+    const res = await axios.delete(`/api/user/likes/${videoId}`, {
+      headers: { authorization: token },
+    });
+
+    if (res.status == 200 || res.status === 201) {
+      videoDispatch({ type: removeFromLikedVideos, payload: res.data.likes });
+    }
   } catch (error) {
     throw new Error(error);
   }

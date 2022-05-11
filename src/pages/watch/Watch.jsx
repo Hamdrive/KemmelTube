@@ -7,9 +7,11 @@ import { useAuth, useVideo } from "../../context";
 export const Watch = () => {
   const { slug } = useParams();
   const {
-    videoState: { videos },
+    videoState: { videos, likedVideos },
     videoDispatch,
     setHistory,
+    setLikedVideos,
+    deleteFromLikedVideos,
   } = useVideo();
   const {
     authState: { token },
@@ -22,8 +24,17 @@ export const Watch = () => {
       video.categoryName === currentVideo.categoryName && video._id !== slug
   );
 
+  const isLiked = likedVideos?.some((video) => video._id === currentVideo._id);
+
   const updateHistory = (video) => {
     token && setHistory(token, video, videoDispatch);
+  };
+  const updateLikedVideos = (video) => {
+    token && setLikedVideos(token, video, videoDispatch);
+  };
+
+  const handleDeleteFromLikedVideos = (videoId) => {
+    deleteFromLikedVideos(token, videoId, videoDispatch);
   };
   return (
     <main className="wrapper p-1">
@@ -36,6 +47,12 @@ export const Watch = () => {
             creatorLogo={currentVideo?.creatorLogo}
             description={currentVideo?.description}
             setHistory={() => updateHistory(currentVideo)}
+            setLikedVideos={
+              isLiked
+                ? () => handleDeleteFromLikedVideos(currentVideo._id)
+                : () => updateLikedVideos(currentVideo)
+            }
+            isLiked={isLiked}
           />
         </Grid>
         <Grid item xs={12} md={4} lg={3} p={1}>

@@ -9,6 +9,7 @@ import { History } from "./history/History";
 import { Error } from "./error/Error";
 import { Explore } from "./explore/Explore";
 import { Categories } from "./home/Categories";
+import { SinglePlaylist } from "./singlePlaylist/SinglePlaylist";
 
 export {
   WatchLater,
@@ -22,4 +23,5 @@ export {
   Error,
   Explore,
   Categories,
+  SinglePlaylist
 };

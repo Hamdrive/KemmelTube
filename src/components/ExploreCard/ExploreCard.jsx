@@ -6,13 +6,32 @@ import {
   CardMedia,
   Grid,
   IconButton,
+  ListItemIcon,
+  ListItemText,
+  Menu,
+  MenuItem,
   Typography,
 } from "@mui/material";
 import { Box } from "@mui/system";
-import React from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import WatchLaterIcon from "@mui/icons-material/WatchLater";
+import MoreVertIcon from "@mui/icons-material/MoreVert";
+import PlaylistAddIcon from "@mui/icons-material/PlaylistAdd";
 
+const options = [
+  {
+    id: 1,
+    name: "Add to Watch Later",
+    icon: <WatchLaterIcon />,
+  },
+  {
+    id: 2,
+    name: "Add to Playlist",
+    icon: <PlaylistAddIcon />,
+  },
+
+];
 
 export const ExploreCard = ({
   title,
@@ -25,6 +44,13 @@ export const ExploreCard = ({
   // handlePlaylist,
   // playlist
 }) => {
+  const [openMenu, setOpenMenu] = useState(false);
+  const [anchorEl, setanchorEl] = useState(null)
+
+  const handleMenuClick = (e) => {
+    setanchorEl(e.currentTarget)
+    setOpenMenu((s) => !s);
+  };
   return (
     <Grid
       item
@@ -70,28 +96,67 @@ export const ExploreCard = ({
             {title}
           </Typography>
           <Box
+            component="div"
             sx={{
               display: "flex",
               justifyContent: "flex-start",
               alignItems: "center",
             }}>
-            <Avatar
-              alt="creator logo"
-              src={creatorLogo}
-              sx={{ width: 36, height: 36, mr: 2 }}
-            />
-            <Typography color="#fff" variant="body1">
-              {creator}
-            </Typography>
+            <Box
+              component="section"
+              sx={{
+                display: "flex",
+                flexDirection: "row",
+                justifyContent: "center",
+                alignItems: "center",
+              }}>
+              <Avatar
+                alt="creator logo"
+                src={creatorLogo}
+                sx={{ width: 36, height: 36, mr: 2 }}
+              />
+              <Typography color="#fff" variant="body1">
+                {creator}
+              </Typography>
+            </Box>
           </Box>
         </CardContent>
       </CardActionArea>
+      <Box
+        sx={{ position: "absolute", bottom: "4%", right: "5%" }}
+        component="section">
+        <IconButton id="long-button" onClick={(e) => handleMenuClick(e)}>
+          <MoreVertIcon sx={{ color: "#fff" }} />
+        </IconButton>
+        <Menu
+          id="long-menu"
+          open={openMenu}
+          onClose={(e) => handleMenuClick(e)}
+          anchorEl={anchorEl}
+          PaperProps={{
+            style: {
+              maxHeight: "6rem",
+              width: "30ch",
+            },
+          }}
+          sx={{ position: "absolute", bottom: "4%", right: "5%" }}>
+          {options.map((option) => (
+            <MenuItem
+              key={option.id}
+              // onClick={handleClose}
+            >
+              <ListItemIcon>{option.icon}</ListItemIcon>
+              <ListItemText>{option.name}</ListItemText>
+            </MenuItem>
+          ))}
+        </Menu>
+      </Box>
       {watchLater && (
         <IconButton
           onClick={handleWatchLater}
           sx={{
             "&:hover": {
-              backgroundColor:"#373c434d",
+              backgroundColor: "#373c434d",
             },
             backgroundColor: "#fff",
             position: "absolute",

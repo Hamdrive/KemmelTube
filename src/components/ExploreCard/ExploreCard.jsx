@@ -19,38 +19,44 @@ import WatchLaterIcon from "@mui/icons-material/WatchLater";
 import MoreVertIcon from "@mui/icons-material/MoreVert";
 import PlaylistAddIcon from "@mui/icons-material/PlaylistAdd";
 
-const options = [
-  {
-    id: 1,
-    name: "Add to Watch Later",
-    icon: <WatchLaterIcon />,
-  },
-  {
-    id: 2,
-    name: "Add to Playlist",
-    icon: <PlaylistAddIcon />,
-  },
-
-];
-
 export const ExploreCard = ({
-  title,
-  thumbnail,
-  creator,
-  creatorLogo,
-  slug,
-  handleWatchLater,
-  watchLater,
+  video,
+  handleModalOpen,
   // handlePlaylist,
   // playlist
 }) => {
   const [openMenu, setOpenMenu] = useState(false);
-  const [anchorEl, setanchorEl] = useState(null)
+  const [anchorEl, setanchorEl] = useState(null);
+
+  const {
+    title,
+    thumbnail,
+    creator,
+    creatorLogo,
+    slug,
+    handleWatchLater,
+    watchLater,
+  } = video;
+
+  const options = [
+    {
+      id: 1,
+      name: "Add to Watch Later",
+      icon: <WatchLaterIcon />,
+    },
+    {
+      id: 2,
+      name: "Add to Playlist",
+      icon: <PlaylistAddIcon />,
+      action: () => handleModalOpen(video),
+    },
+  ];
 
   const handleMenuClick = (e) => {
-    setanchorEl(e.currentTarget)
+    setanchorEl(e.currentTarget);
     setOpenMenu((s) => !s);
   };
+
   return (
     <Grid
       item
@@ -141,10 +147,7 @@ export const ExploreCard = ({
           }}
           sx={{ position: "absolute", bottom: "4%", right: "5%" }}>
           {options.map((option) => (
-            <MenuItem
-              key={option.id}
-              // onClick={handleClose}
-            >
+            <MenuItem key={option.id} onClick={option.action}>
               <ListItemIcon>{option.icon}</ListItemIcon>
               <ListItemText>{option.name}</ListItemText>
             </MenuItem>

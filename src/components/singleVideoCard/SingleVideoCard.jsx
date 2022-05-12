@@ -8,10 +8,10 @@ import WatchLaterIcon from "@mui/icons-material/WatchLater";
 import AccessTimeIcon from "@mui/icons-material/AccessTime";
 import PlaylistAddIcon from "@mui/icons-material/PlaylistAdd";
 import styled from "@emotion/styled";
-// import PlaylistAddCheckIcon from "@mui/icons-material/PlaylistAddCheck";
 
 export const SingleVideoCard = ({
   slug,
+  video,
   title,
   creator,
   creatorLogo,
@@ -21,6 +21,7 @@ export const SingleVideoCard = ({
   isLiked,
   setWatchLater,
   isWatchLater,
+  handlePlaylistModal,
 }) => {
   const opts = {
     height: "500",
@@ -53,6 +54,7 @@ export const SingleVideoCard = ({
       name: "Add to Playlist",
       title: "Add video to playlist",
       icon: <PlaylistAddIcon />,
+      clickEvent: () => handlePlaylistModal(video),
     },
   ];
 

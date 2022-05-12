@@ -1,10 +1,16 @@
-import React from "react";
+import React, { useState } from "react";
 import { Grid, Typography } from "@mui/material";
-import { RelatedVideoCard, SingleVideoCard } from "../../components";
+import {
+  PlaylistModal,
+  RelatedVideoCard,
+  SingleVideoCard,
+} from "../../components";
 import { useParams } from "react-router-dom";
 import { useAuth, useVideo } from "../../context";
 
 export const Watch = () => {
+  const [playlistVideo, setplaylistVideo] = useState({});
+
   const { slug } = useParams();
   const {
     videoState: { videos, likedVideos, watchLater },
@@ -18,6 +24,8 @@ export const Watch = () => {
 
   const {
     authState: { token },
+    modal,
+    setModal,
   } = useAuth();
 
   const currentVideo = videos?.find((video) => video._id === slug);
@@ -53,12 +61,18 @@ export const Watch = () => {
     deleteFromWatchLater(token, videoId, videoDispatch);
   };
 
+  const handleModalOpen = (video) => {
+    setplaylistVideo(video);
+    setModal((s) => !s);
+  };
+
   return (
     <main className="wrapper p-1">
       <Grid container>
         <Grid item xs={12} md={8} lg={9} px={1}>
           <SingleVideoCard
             slug={slug}
+            video={currentVideo}
             title={currentVideo?.title}
             creator={currentVideo?.creator}
             creatorLogo={currentVideo?.creatorLogo}
@@ -76,9 +90,21 @@ export const Watch = () => {
                 : () => updateWatchLater(currentVideo)
             }
             isWatchLater={isWatchLater}
+            handlePlaylistModal={handleModalOpen}
           />
         </Grid>
-        <Grid item xs={12} md={4} lg={3} p={1}>
+        <Grid
+          item
+          xs={12}
+          md={4}
+          lg={3}
+          p={1}
+          sx={{
+            pt: {
+              xs: 5,
+              md: 0,
+            },
+          }}>
           <Typography
             color="#fff"
             fontWeight={500}
@@ -101,6 +127,14 @@ export const Watch = () => {
         </Grid>
         Watch
       </Grid>
+      {modal && (
+        <PlaylistModal
+          token={token}
+          modal={modal}
+          setModal={setModal}
+          playlistVideo={playlistVideo}
+        />
+      )}
     </main>
   );
 };

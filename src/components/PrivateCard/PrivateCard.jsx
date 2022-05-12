@@ -93,7 +93,7 @@ export const PrivateCard = ({
           top: "2%",
           right: "2%",
         }}>
-        {["history", "likedVideos", "watchLater"].includes(location) ? (
+        {["history", "likedVideos", "watchLater", "playlist"].includes(location) ? (
           <DeleteIcon sx={{ color: "#f44336", fontSize: "1.75rem" }} />
         ) : null}
       </IconButton>

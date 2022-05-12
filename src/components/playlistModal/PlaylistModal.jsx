@@ -103,7 +103,8 @@ export const PlaylistModal = ({
     setplaylistTitle("");
   };
 
-  const handleVideoInPlaylist = (playlistId) => {
+  const handleVideoInPlaylist = (e, playlistId) => {
+      e.preventDefault()
     isInPlaylist(playlistId, playlistVideo._id)
       ? deleteVideoFromPlaylist(
           token,
@@ -172,7 +173,7 @@ export const PlaylistModal = ({
                   control={
                     <Checkbox
                       checked={isInPlaylist(playlist._id, playlistVideo._id)}
-                      onChange={() => handleVideoInPlaylist(playlist._id)}
+                      onChange={(e) => handleVideoInPlaylist(e, playlist._id)}
                     />
                   }
                   label={playlist.title}

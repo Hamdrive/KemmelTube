@@ -15,6 +15,10 @@ const {
   watchLater,
   addToWatchLater,
   removeFromWatchLater,
+  addPlaylist,
+  addVideoToPlaylist,
+  deletePlaylist,
+  removeVideoFromPlaylist,
 } = constants;
 
 export const getVideos = async (videoDispatch) => {
@@ -96,6 +100,91 @@ export const getPlaylists = async (videoDispatch) => {
     const res = await JSON.parse(localStorage.getItem("userAuthData")).userData;
 
     videoDispatch({ type: playlists, payload: res.playlists });
+  } catch (error) {
+    throw new Error(error);
+  }
+};
+
+export const setPlaylists = async (token, playlistTitle, videoDispatch) => {
+  try {
+    const res = await axios.post(
+      "/api/user/playlists",
+      { playlist: { title: playlistTitle } },
+      { headers: { authorization: token } }
+    );
+    if (res.status == 200 || res.status === 201) {
+      videoDispatch({ type: addPlaylist, payload: res.data.playlists });
+    }
+  } catch (error) {
+    throw new Error(error);
+  }
+};
+
+export const setPlaylistNewVideo = async (
+  token,
+  video,
+  playlists,
+  playlistId,
+  videoDispatch
+) => {
+  try {
+    const res = await axios.post(
+      `/api/user/playlists/${playlistId}`,
+      { video },
+      { headers: { authorization: token } }
+    );
+    if (res.status == 200 || res.status === 201) {
+      const playlist = res.data.playlist;
+      const updatedPlaylists = playlists.map((localPlaylist) =>
+        localPlaylist._id === playlist._id
+          ? { ...localPlaylist, videos: playlist.videos }
+          : { ...localPlaylist }
+      );
+      videoDispatch({ type: addVideoToPlaylist, payload: updatedPlaylists });
+    }
+  } catch (error) {
+    throw new Error(error);
+  }
+};
+
+export const deleteVideoFromPlaylist = async (
+  token,
+  videoId,
+  playlists,
+  playlistId,
+  videoDispatch
+) => {
+  try {
+    const res = await axios.delete(
+      `/api/user/playlists/${playlistId}/${videoId}`,
+      { headers: { authorization: token } }
+    );
+    if (res.status == 200 || res.status === 201) {
+      const playlist = res.data.playlist;
+      const updatedPlaylists = playlists.map((localPlaylist) =>
+        localPlaylist._id === playlist._id
+          ? { ...localPlaylist, videos: playlist.videos }
+          : { ...localPlaylist }
+      );
+      videoDispatch({
+        type: removeVideoFromPlaylist,
+        payload: updatedPlaylists,
+      });
+    }
+  } catch (error) {
+    throw new Error(error);
+  }
+};
+
+export const deleteSinglePlaylist = async (token, playlistId, videoDispatch) => {
+  try {
+    const res = await axios.delete(
+      `/api/user/playlists/${playlistId}`,
+      { headers: { authorization: token } }
+    );
+    if (res.status == 200 || res.status === 201) {
+      videoDispatch({ type: deletePlaylist, payload: res.data.playlists });
+    }
   } catch (error) {
     throw new Error(error);
   }

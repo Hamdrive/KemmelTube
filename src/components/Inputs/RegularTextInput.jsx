@@ -7,7 +7,7 @@ export const RegularTextInput = ({
   value,
   handleChange,
   placeholder = "",
-  helperText = "Invalid input",
+  helperText = "",
   required = false,
   error = false,
 }) => {

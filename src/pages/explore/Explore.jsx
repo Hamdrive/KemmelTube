@@ -5,7 +5,8 @@ import { CategoryFilter, ExploreCard, PlaylistModal } from "../../components";
 import { useAuth, useVideo } from "../../context";
 
 export const Explore = () => {
-    const { modal, setModal } = useAuth();
+  const [playlistVideo, setplaylistVideo] = useState({});
+  const { modal, setModal } = useAuth();
 
   const {
     videoState: { filteredVideos, filters },
@@ -31,6 +32,10 @@ export const Explore = () => {
         });
   };
 
+  const handleModalOpen = (video) => {
+    setplaylistVideo(video);
+    setModal((s) => !s);
+  };
 
   return (
     <main className="wrapper p-1">
@@ -45,20 +50,18 @@ export const Explore = () => {
         {filteredVideos.map((video) => (
           <ExploreCard
             key={video.id}
-            slug={video._id}
-            title={video.title}
-            thumbnail={video.thumbnail}
-            creator={video.creator}
-            creatorLogo={video.creatorLogo}
+            video={video}
             handleWatchLater={() => handleExplore(video, "watchLater")}
             watchLater={true}
             handlePlaylist={() => handleExplore(video, "playlist")}
             playlist={true}
-            setModal={setModal}
+            handleModalOpen={handleModalOpen}
           />
         ))}
       </Grid>
-      {modal && <PlaylistModal modal={modal} setModal={setModal} />}
+      {modal && (
+        <PlaylistModal token={token} modal={modal} setModal={setModal} playlistVideo={playlistVideo} />
+      )}
     </main>
   );
 };

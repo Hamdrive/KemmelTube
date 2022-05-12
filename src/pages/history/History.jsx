@@ -34,7 +34,7 @@ export const History = () => {
         showBtn={showBtn}
         title="History"
         btnText="Clear History"
-        handleClear={handleClear}
+        handlerFn={handleClear}
       />
       {history.length > 0 ? (
         <Grid

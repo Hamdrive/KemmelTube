@@ -33,7 +33,7 @@ export const ExploreCard = ({
     thumbnail,
     creator,
     creatorLogo,
-    slug,
+    _id,
     handleWatchLater,
     watchLater,
   } = video;
@@ -76,7 +76,7 @@ export const ExploreCard = ({
       }}>
       <CardActionArea
         component={Link}
-        to={`/watch/${slug}`}
+        to={`/watch/${_id}`}
         sx={{ height: "100%", display: "flex", flexDirection: "column" }}>
         <CardMedia
           component="img"

@@ -15,6 +15,7 @@ import CloseIcon from "@mui/icons-material/Close";
 import styled from "@emotion/styled";
 import { RegularTextInput } from "../Inputs/RegularTextInput";
 import { useVideo } from "../../context";
+import { useLocation } from "react-router-dom";
 
 const CustomFormControl = styled(FormControl)({
   required: true,
@@ -77,28 +78,47 @@ const ButtonWrapper = styled(Button)(() => ({
   marginTop: "1rem",
 }));
 
-export const PlaylistModal = ({ token, modal, setModal, playlistVideo }) => {
+export const PlaylistModal = ({
+  token,
+  modal,
+  setModal,
+  playlistVideo = null,
+}) => {
   const {
     videoState: { playlists },
     videoDispatch,
     setPlaylists,
     setPlaylistNewVideo,
     deleteVideoFromPlaylist,
-    isInPlaylist
+    isInPlaylist,
   } = useVideo();
   const [newPlaylist, setnewPlaylist] = useState(false);
   const [playlistTitle, setplaylistTitle] = useState("");
 
+  const location = useLocation();
+
   const handleNewPlaylist = (e) => {
-      e.preventDefault(e)
+    e.preventDefault(e);
     setPlaylists(token, playlistTitle, videoDispatch);
-    setplaylistTitle("")
+    setplaylistTitle("");
   };
 
   const handleVideoInPlaylist = (playlistId) => {
     isInPlaylist(playlistId, playlistVideo._id)
-      ? deleteVideoFromPlaylist(token, playlistVideo._id, playlists, playlistId, videoDispatch)
-      : setPlaylistNewVideo(token, playlistVideo, playlists, playlistId, videoDispatch);
+      ? deleteVideoFromPlaylist(
+          token,
+          playlistVideo._id,
+          playlists,
+          playlistId,
+          videoDispatch
+        )
+      : setPlaylistNewVideo(
+          token,
+          playlistVideo,
+          playlists,
+          playlistId,
+          videoDispatch
+        );
   };
 
   const handleClose = () => {
@@ -141,23 +161,27 @@ export const PlaylistModal = ({ token, modal, setModal, playlistVideo }) => {
             <CloseIcon sx={{ color: "#fff" }} />
           </IconButton>
         </Box>
-        <Box component="div" sx={{ display: "flex", flexDirection: "column" }}>
-          <FormGroup>
-            {playlists.map((playlist) => (
-              <FormControlLabel
-                key={playlist._id}
-                control={
-                  <Checkbox
-                  checked={isInPlaylist(playlist._id, playlistVideo._id)}
-                    onChange={() => handleVideoInPlaylist(playlist._id)}
-                  />
-                }
-                label={playlist.title}
-                sx={{color: "#fff"}}
-              />
-            ))}
-          </FormGroup>
-        </Box>
+        {location.pathname !== "/playlists" && (
+          <Box
+            component="div"
+            sx={{ display: "flex", flexDirection: "column" }}>
+            <FormGroup>
+              {playlists.map((playlist) => (
+                <FormControlLabel
+                  key={playlist._id}
+                  control={
+                    <Checkbox
+                      checked={isInPlaylist(playlist._id, playlistVideo._id)}
+                      onChange={() => handleVideoInPlaylist(playlist._id)}
+                    />
+                  }
+                  label={playlist.title}
+                  sx={{ color: "#fff" }}
+                />
+              ))}
+            </FormGroup>
+          </Box>
+        )}
         {newPlaylist ? (
           <Box onSubmit={(e) => handleNewPlaylist(e)} component="form">
             <CustomFormControl>

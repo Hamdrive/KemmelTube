@@ -5,7 +5,7 @@ import {
   RelatedVideoCard,
   SingleVideoCard,
 } from "../../components";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { useAuth, useVideo } from "../../context";
 
 export const Watch = () => {
@@ -28,6 +28,7 @@ export const Watch = () => {
     setModal,
   } = useAuth();
 
+  const navigate = useNavigate()
   const currentVideo = videos?.find((video) => video._id === slug);
 
   const relatedVideos = videos?.filter(
@@ -61,9 +62,15 @@ export const Watch = () => {
     deleteFromWatchLater(token, videoId, videoDispatch);
   };
 
-  const handleModalOpen = (video) => {
-    setplaylistVideo(video);
-    setModal((s) => !s);
+  const handlePlaylist = (video) => {
+    if (token) {
+      setplaylistVideo(video);
+      setModal((s) => !s);
+    } else {
+      navigate("/login", {
+        replace: true,
+      });
+    }
   };
 
   return (
@@ -90,7 +97,7 @@ export const Watch = () => {
                 : () => updateWatchLater(currentVideo)
             }
             isWatchLater={isWatchLater}
-            handlePlaylistModal={handleModalOpen}
+            handlePlaylistModal={handlePlaylist}
           />
         </Grid>
         <Grid

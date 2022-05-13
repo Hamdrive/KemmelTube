@@ -25,7 +25,6 @@ export const ExploreCard = ({
   // handlePlaylist,
   // playlist
 }) => {
-  const [openMenu, setOpenMenu] = useState(false);
   const [anchorEl, setanchorEl] = useState(null);
 
   const {
@@ -48,14 +47,12 @@ export const ExploreCard = ({
       id: 2,
       name: "Add to Playlist",
       icon: <PlaylistAddIcon />,
-      action: () => handleModalOpen(video),
+      action: () => {
+        handleModalOpen(video);
+        setanchorEl(null);
+      },
     },
   ];
-
-  const handleMenuClick = (e) => {
-    setanchorEl(e.currentTarget);
-    setOpenMenu((s) => !s);
-  };
 
   return (
     <Grid
@@ -131,21 +128,24 @@ export const ExploreCard = ({
       <Box
         sx={{ position: "absolute", bottom: "4%", right: "5%" }}
         component="section">
-        <IconButton id="long-button" onClick={(e) => handleMenuClick(e)}>
+        <IconButton
+          id="long-button"
+          onClick={(e) => setanchorEl(e.currentTarget)}>
           <MoreVertIcon sx={{ color: "#fff" }} />
         </IconButton>
         <Menu
           id="long-menu"
-          open={openMenu}
-          onClose={(e) => handleMenuClick(e)}
+          open={Boolean(anchorEl)}
+          onClose={() => setanchorEl(null)}
           anchorEl={anchorEl}
+          anchorOrigin={{ vertical: "bottom", horizontal: "center" }}
+          transformOrigin={{ horizontal: "left" }}
           PaperProps={{
             style: {
               maxHeight: "6rem",
               width: "30ch",
             },
-          }}
-          sx={{ position: "absolute", bottom: "4%", right: "5%" }}>
+          }}>
           {options.map((option) => (
             <MenuItem key={option.id} onClick={option.action}>
               <ListItemIcon>{option.icon}</ListItemIcon>

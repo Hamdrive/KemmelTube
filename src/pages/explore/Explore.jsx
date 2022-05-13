@@ -5,13 +5,11 @@ import { CategoryFilter, ExploreCard, PlaylistModal } from "../../components";
 import { useAuth, useVideo } from "../../context";
 
 export const Explore = () => {
-  const [playlistVideo, setplaylistVideo] = useState({});
+  const [playlistVideo, setPlaylistVideo] = useState({});
   const { modal, setModal } = useAuth();
 
   const {
     videoState: { filteredVideos, filters },
-    videoDispatch,
-    setWatchLater,
   } = useVideo();
 
   const {
@@ -22,19 +20,9 @@ export const Explore = () => {
 
   const [selectedCategory, setSelectedCategory] = useState(filters ?? "All");
 
-  const handleWatchLater = (video) => {
-    if (token) {
-      setWatchLater(token, video, videoDispatch);
-    } else {
-      navigate("/login", {
-        replace: true,
-      });
-    }
-  };
-
   const handlePlaylist = (video) => {
     if (token) {
-      setplaylistVideo(video);
+      setPlaylistVideo(video);
       setModal((s) => !s);
     } else {
       navigate("/login", {
@@ -57,9 +45,6 @@ export const Explore = () => {
           <ExploreCard
             key={video.id}
             video={video}
-            handleWatchLater={handleWatchLater}
-            watchLater={true}
-            playlist={true}
             handlePlaylist={handlePlaylist}
           />
         ))}

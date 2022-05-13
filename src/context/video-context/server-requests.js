@@ -8,13 +8,13 @@ const {
   addToHistory,
   deleteHistory,
   deleteAllHistory,
-  playlists,
   likedVideos,
   addToLikedVideos,
   removeFromLikedVideos,
   watchLater,
   addToWatchLater,
   removeFromWatchLater,
+  playlists,
   addPlaylist,
   addVideoToPlaylist,
   deletePlaylist,
@@ -105,6 +105,19 @@ export const getPlaylists = async (videoDispatch) => {
   }
 };
 
+export const getSinglePlaylist = async (token, playlistId) => {
+  try {
+    const res = await axios.get(`/api/user/playlists/${playlistId}`, {
+      headers: { authorization: token },
+    });
+    if (res.status == 200 || res.status === 201) {
+      return res.data.playlist;
+    }
+  } catch (error) {
+    throw new Error(error);
+  }
+};
+
 export const setPlaylists = async (token, playlistTitle, videoDispatch) => {
   try {
     const res = await axios.post(
@@ -113,6 +126,7 @@ export const setPlaylists = async (token, playlistTitle, videoDispatch) => {
       { headers: { authorization: token } }
     );
     if (res.status == 200 || res.status === 201) {
+      console.log(res);
       videoDispatch({ type: addPlaylist, payload: res.data.playlists });
     }
   } catch (error) {
@@ -134,6 +148,7 @@ export const setPlaylistNewVideo = async (
       { headers: { authorization: token } }
     );
     if (res.status == 200 || res.status === 201) {
+      console.log(res);
       const playlist = res.data.playlist;
       const updatedPlaylists = playlists.map((localPlaylist) =>
         localPlaylist._id === playlist._id
@@ -176,12 +191,15 @@ export const deleteVideoFromPlaylist = async (
   }
 };
 
-export const deleteSinglePlaylist = async (token, playlistId, videoDispatch) => {
+export const deleteSinglePlaylist = async (
+  token,
+  playlistId,
+  videoDispatch
+) => {
   try {
-    const res = await axios.delete(
-      `/api/user/playlists/${playlistId}`,
-      { headers: { authorization: token } }
-    );
+    const res = await axios.delete(`/api/user/playlists/${playlistId}`, {
+      headers: { authorization: token },
+    });
     if (res.status == 200 || res.status === 201) {
       videoDispatch({ type: deletePlaylist, payload: res.data.playlists });
     }

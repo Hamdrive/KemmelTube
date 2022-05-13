@@ -11,6 +11,7 @@ export const constants = {
   deleteHistory: "DELETE_HISTORY",
   deleteAllHistory: "DELETE_ALL_HISTORY",
   playlists: "PLAYLISTS",
+  singlePlaylist: "SINGLE_PLAYLIST",
   addPlaylist: "ADD_PLAYLISTS",
   deletePlaylist: "DELETE_PLAYLISTS",
   addVideoToPlaylist: "ADD_VIDEO_TO_PLAYLIST",

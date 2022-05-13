@@ -1,13 +1,15 @@
 import { Grid } from "@mui/material";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { EmptyResult, PageHeader, PrivateCard } from "../../components";
 import { useAuth, useVideo } from "../../context";
 
 export const SinglePlaylist = () => {
+  const [currentPlaylist, setCurrentPlaylist] = useState("");
   const {
     videoState: { playlists },
     videoDispatch,
+    getSinglePlaylist,
     deleteVideoFromPlaylist,
   } = useVideo();
 
@@ -17,11 +19,16 @@ export const SinglePlaylist = () => {
 
   const { slug } = useParams();
 
-  const currentPlaylist = playlists?.find((playlist) => playlist._id === slug);
-
   const handleDeleteVideoFromPlaylist = (videoId) => {
     deleteVideoFromPlaylist(token, videoId, playlists, slug, videoDispatch);
   };
+
+  useEffect(() => {
+    (async () => {
+      const getcurrentPlaylist = await getSinglePlaylist(token, slug);
+      setCurrentPlaylist(getcurrentPlaylist);
+    })();
+  }, []);
 
   return (
     <main className="wrapper p-1">

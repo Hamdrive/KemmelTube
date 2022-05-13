@@ -5,7 +5,7 @@ export const PageHeader = ({
   showBtn = false,
   title = "",
   btnText = "Clear",
-  handleClear,
+  handlerFn,
 }) => {
   return (
     <Paper
@@ -45,7 +45,7 @@ export const PageHeader = ({
           }}
           variant="contained"
           size="medium"
-          onClick={handleClear}>
+          onClick={handlerFn}>
           {btnText}
         </Button>
       )}

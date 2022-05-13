@@ -7,8 +7,15 @@ import {
   setLikedVideos,
   deleteFromLikedVideos,
   getPlaylists,
+  getSinglePlaylist,
+  setPlaylists,
+  setPlaylistNewVideo,
+  deleteVideoFromPlaylist,
+  deleteSinglePlaylist,
   getVideos,
   getWatchLater,
+  setWatchLater,
+  deleteFromWatchLater,
   setHistory,
   deleteFromHistory,
   clearAllHistory,
@@ -39,6 +46,12 @@ const VideoProvider = ({ children }) => {
     authState: { token },
   } = useAuth();
 
+  const isInPlaylist = (playlistId, videoId) => {
+    const currPlaylist = videoState?.playlists?.filter((playlist) => playlist._id === playlistId)
+    const findVideoInPlaylist = currPlaylist[0]?.videos?.some((video) => video._id === videoId)
+    return findVideoInPlaylist
+  }
+
   useEffect(() => {
     const finalVideos = filterVideos(videoState.filters, [
       ...videoState.videos,
@@ -66,6 +79,14 @@ const VideoProvider = ({ children }) => {
     deleteFromHistory,
     setLikedVideos,
     deleteFromLikedVideos,
+    setWatchLater,
+    deleteFromWatchLater,
+    getSinglePlaylist,
+    setPlaylists,
+    setPlaylistNewVideo,
+    deleteVideoFromPlaylist,
+    deleteSinglePlaylist,
+    isInPlaylist
   };
 
   return (

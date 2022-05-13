@@ -1,6 +1,6 @@
 import { Grid } from "@mui/material";
 import React, { useState, useEffect } from "react";
-import { PageHeader, ExploreCard, EmptyResult } from "../../components";
+import { PageHeader, EmptyResult, PrivateCard } from "../../components";
 import { useAuth, useVideo } from "../../context";
 
 export const History = () => {
@@ -34,7 +34,7 @@ export const History = () => {
         showBtn={showBtn}
         title="History"
         btnText="Clear History"
-        handleClear={handleClear}
+        handlerFn={handleClear}
       />
       {history.length > 0 ? (
         <Grid
@@ -42,7 +42,7 @@ export const History = () => {
           sx={{ gap: 3 }}
           container>
           {history.map((video) => (
-            <ExploreCard
+            <PrivateCard
               key={video.id}
               slug={video._id}
               title={video.title}

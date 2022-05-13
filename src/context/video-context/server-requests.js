@@ -8,11 +8,17 @@ const {
   addToHistory,
   deleteHistory,
   deleteAllHistory,
-  playlists,
   likedVideos,
   addToLikedVideos,
   removeFromLikedVideos,
   watchLater,
+  addToWatchLater,
+  removeFromWatchLater,
+  playlists,
+  addPlaylist,
+  addVideoToPlaylist,
+  deletePlaylist,
+  removeVideoFromPlaylist,
 } = constants;
 
 export const getVideos = async (videoDispatch) => {
@@ -99,6 +105,109 @@ export const getPlaylists = async (videoDispatch) => {
   }
 };
 
+export const getSinglePlaylist = async (token, playlistId) => {
+  try {
+    const res = await axios.get(`/api/user/playlists/${playlistId}`, {
+      headers: { authorization: token },
+    });
+    if (res.status == 200 || res.status === 201) {
+      return res.data.playlist;
+    }
+  } catch (error) {
+    throw new Error(error);
+  }
+};
+
+export const setPlaylists = async (token, playlistTitle, videoDispatch) => {
+  try {
+    const res = await axios.post(
+      "/api/user/playlists",
+      { playlist: { title: playlistTitle } },
+      { headers: { authorization: token } }
+    );
+    if (res.status == 200 || res.status === 201) {
+      console.log(res);
+      videoDispatch({ type: addPlaylist, payload: res.data.playlists });
+    }
+  } catch (error) {
+    throw new Error(error);
+  }
+};
+
+export const setPlaylistNewVideo = async (
+  token,
+  video,
+  playlists,
+  playlistId,
+  videoDispatch
+) => {
+  try {
+    const res = await axios.post(
+      `/api/user/playlists/${playlistId}`,
+      { video },
+      { headers: { authorization: token } }
+    );
+    if (res.status == 200 || res.status === 201) {
+      console.log(res);
+      const playlist = res.data.playlist;
+      const updatedPlaylists = playlists.map((localPlaylist) =>
+        localPlaylist._id === playlist._id
+          ? { ...localPlaylist, videos: playlist.videos }
+          : { ...localPlaylist }
+      );
+      videoDispatch({ type: addVideoToPlaylist, payload: updatedPlaylists });
+    }
+  } catch (error) {
+    throw new Error(error);
+  }
+};
+
+export const deleteVideoFromPlaylist = async (
+  token,
+  videoId,
+  playlists,
+  playlistId,
+  videoDispatch
+) => {
+  try {
+    const res = await axios.delete(
+      `/api/user/playlists/${playlistId}/${videoId}`,
+      { headers: { authorization: token } }
+    );
+    if (res.status == 200 || res.status === 201) {
+      const playlist = res.data.playlist;
+      const updatedPlaylists = playlists.map((localPlaylist) =>
+        localPlaylist._id === playlist._id
+          ? { ...localPlaylist, videos: playlist.videos }
+          : { ...localPlaylist }
+      );
+      videoDispatch({
+        type: removeVideoFromPlaylist,
+        payload: updatedPlaylists,
+      });
+    }
+  } catch (error) {
+    throw new Error(error);
+  }
+};
+
+export const deleteSinglePlaylist = async (
+  token,
+  playlistId,
+  videoDispatch
+) => {
+  try {
+    const res = await axios.delete(`/api/user/playlists/${playlistId}`, {
+      headers: { authorization: token },
+    });
+    if (res.status == 200 || res.status === 201) {
+      videoDispatch({ type: deletePlaylist, payload: res.data.playlists });
+    }
+  } catch (error) {
+    throw new Error(error);
+  }
+};
+
 export const getLikedVideos = async (videoDispatch) => {
   try {
     const res = await JSON.parse(localStorage.getItem("userAuthData")).userData;
@@ -143,6 +252,38 @@ export const getWatchLater = async (videoDispatch) => {
     const res = await JSON.parse(localStorage.getItem("userAuthData")).userData;
 
     videoDispatch({ type: watchLater, payload: res.watchlater });
+  } catch (error) {
+    throw new Error(error);
+  }
+};
+
+export const setWatchLater = async (token, video, videoDispatch) => {
+  try {
+    const res = await axios.post(
+      "/api/user/watchlater",
+      { video },
+      { headers: { authorization: token } }
+    );
+    if (res.status == 200 || res.status === 201) {
+      videoDispatch({ type: addToWatchLater, payload: res.data.watchlater });
+    }
+  } catch (error) {
+    throw new Error(error);
+  }
+};
+
+export const deleteFromWatchLater = async (token, videoId, videoDispatch) => {
+  try {
+    const res = await axios.delete(`/api/user/watchlater/${videoId}`, {
+      headers: { authorization: token },
+    });
+
+    if (res.status == 200 || res.status === 201) {
+      videoDispatch({
+        type: removeFromWatchLater,
+        payload: res.data.watchlater,
+      });
+    }
   } catch (error) {
     throw new Error(error);
   }

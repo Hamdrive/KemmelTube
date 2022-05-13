@@ -6,22 +6,52 @@ import {
   CardMedia,
   Grid,
   IconButton,
+  ListItemIcon,
+  ListItemText,
+  Menu,
+  MenuItem,
   Typography,
 } from "@mui/material";
 import { Box } from "@mui/system";
-import React from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
-import DeleteIcon from "@mui/icons-material/Delete";
+import WatchLaterIcon from "@mui/icons-material/WatchLater";
+import MoreVertIcon from "@mui/icons-material/MoreVert";
+import PlaylistAddIcon from "@mui/icons-material/PlaylistAdd";
 
 export const ExploreCard = ({
-  title,
-  thumbnail,
-  creator,
-  creatorLogo,
-  slug,
-  location,
-  handleIconAction,
+  video,
+  handlePlaylist,
 }) => {
+  const [anchorEl, setAnchorEl] = useState(null);
+
+  const {
+    title,
+    thumbnail,
+    creator,
+    creatorLogo,
+    _id,
+    handleWatchLater,
+    watchLater,
+  } = video;
+
+  const options = [
+    {
+      id: 1,
+      name: "Add to Watch Later",
+      icon: <WatchLaterIcon />,
+    },
+    {
+      id: 2,
+      name: "Add to Playlist",
+      icon: <PlaylistAddIcon />,
+      action: () => {
+        handlePlaylist(video);
+        setAnchorEl(null);
+      },
+    },
+  ];
+
   return (
     <Grid
       item
@@ -41,7 +71,7 @@ export const ExploreCard = ({
       }}>
       <CardActionArea
         component={Link}
-        to={`/watch/${slug}`}
+        to={`/watch/${_id}`}
         sx={{ height: "100%", display: "flex", flexDirection: "column" }}>
         <CardMedia
           component="img"
@@ -67,37 +97,75 @@ export const ExploreCard = ({
             {title}
           </Typography>
           <Box
+            component="div"
             sx={{
               display: "flex",
               justifyContent: "flex-start",
               alignItems: "center",
             }}>
-            <Avatar
-              alt="creator logo"
-              src={creatorLogo}
-              sx={{ width: 36, height: 36, mr: 2 }}
-            />
-            <Typography color="#fff" variant="body1">
-              {creator}
-            </Typography>
+            <Box
+              component="section"
+              sx={{
+                display: "flex",
+                flexDirection: "row",
+                justifyContent: "center",
+                alignItems: "center",
+              }}>
+              <Avatar
+                alt="creator logo"
+                src={creatorLogo}
+                sx={{ width: 36, height: 36, mr: 2 }}
+              />
+              <Typography color="#fff" variant="body1">
+                {creator}
+              </Typography>
+            </Box>
           </Box>
         </CardContent>
       </CardActionArea>
-      <IconButton
-        onClick={handleIconAction}
-        sx={{
-          "&:hover": {
-            backgroundColor:
-              location === "history" ? "#f4433666" : "transparent",
-          },
-          position: "absolute",
-          top: "2%",
-          right: "2%",
-        }}>
-        {["history", "likedVideos", "watchLater"].includes(location) ? (
-          <DeleteIcon sx={{ color: "#f44336", fontSize: "1.75rem" }} />
-        ) : null}
-      </IconButton>
+      <Box
+        sx={{ position: "absolute", bottom: "4%", right: "5%" }}
+        component="section">
+        <IconButton
+          id="long-button"
+          onClick={(e) => setAnchorEl(e.currentTarget)}>
+          <MoreVertIcon sx={{ color: "#fff" }} />
+        </IconButton>
+        <Menu
+          id="long-menu"
+          open={Boolean(anchorEl)}
+          onClose={() => setAnchorEl(null)}
+          anchorEl={anchorEl}
+          anchorOrigin={{ vertical: "bottom", horizontal: "center" }}
+          PaperProps={{
+            style: {
+              maxHeight: "6rem",
+              width: "30ch",
+            },
+          }}>
+          {options.map((option) => (
+            <MenuItem key={option.id} onClick={option.action}>
+              <ListItemIcon>{option.icon}</ListItemIcon>
+              <ListItemText>{option.name}</ListItemText>
+            </MenuItem>
+          ))}
+        </Menu>
+      </Box>
+      {watchLater && (
+        <IconButton
+          onClick={handleWatchLater}
+          sx={{
+            "&:hover": {
+              backgroundColor: "#373c434d",
+            },
+            backgroundColor: "#fff",
+            position: "absolute",
+            top: "2%",
+            right: "2%",
+          }}>
+          <WatchLaterIcon sx={{ color: "#373c43", fontSize: "1.5rem" }} />
+        </IconButton>
+      )}
     </Grid>
   );
 };

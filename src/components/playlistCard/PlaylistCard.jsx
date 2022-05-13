@@ -44,9 +44,10 @@ export const PlaylistCard = ({
         <CardMedia
           component="img"
           height="250"
+          width="100%"
           image={thumbnail || EmptyIllustration}
           alt="category image"
-          sx={{ objectFit: "fit" }}
+          sx={{ objectFit: "cover" }}
         />
         <CardContent
           sx={{
@@ -55,11 +56,13 @@ export const PlaylistCard = ({
             justifyContent: "space-between",
             flexGrow: 1,
             width: "100%",
+            textOverflow: "ellipsis",
           }}>
           <Typography
             color="#fff"
             fontWeight={600}
             gutterBottom
+            noWrap
             variant="h6"
             component="div">
             {title} ({length > 0 ? `${length} Videos` : "Empty Playlist"})

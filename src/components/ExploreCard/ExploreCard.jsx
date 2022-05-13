@@ -139,7 +139,6 @@ export const ExploreCard = ({
           onClose={() => setanchorEl(null)}
           anchorEl={anchorEl}
           anchorOrigin={{ vertical: "bottom", horizontal: "center" }}
-          transformOrigin={{ horizontal: "left" }}
           PaperProps={{
             style: {
               maxHeight: "6rem",

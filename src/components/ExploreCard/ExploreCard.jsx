@@ -21,7 +21,7 @@ import PlaylistAddIcon from "@mui/icons-material/PlaylistAdd";
 
 export const ExploreCard = ({
   video,
-  handleModalOpen,
+  handlePlaylist,
 }) => {
   const [anchorEl, setAnchorEl] = useState(null);
 
@@ -46,7 +46,7 @@ export const ExploreCard = ({
       name: "Add to Playlist",
       icon: <PlaylistAddIcon />,
       action: () => {
-        handleModalOpen(video);
+        handlePlaylist(video);
         setAnchorEl(null);
       },
     },

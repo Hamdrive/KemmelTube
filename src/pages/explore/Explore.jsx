@@ -22,19 +22,25 @@ export const Explore = () => {
 
   const [selectedCategory, setSelectedCategory] = useState(filters ?? "All");
 
-  const handleExplore = (video, route) => {
-    token
-      ? route === "watchLater"
-        ? setWatchLater(token, video, videoDispatch)
-        : null
-      : navigate("/login", {
-          replace: true,
-        });
+  const handleWatchLater = (video) => {
+    if (token) {
+      setWatchLater(token, video, videoDispatch);
+    } else {
+      navigate("/login", {
+        replace: true,
+      });
+    }
   };
 
-  const handleModalOpen = (video) => {
-    setplaylistVideo(video);
-    setModal((s) => !s);
+  const handlePlaylist = (video) => {
+    if (token) {
+      setplaylistVideo(video);
+      setModal((s) => !s);
+    } else {
+      navigate("/login", {
+        replace: true,
+      });
+    }
   };
 
   return (
@@ -51,16 +57,20 @@ export const Explore = () => {
           <ExploreCard
             key={video.id}
             video={video}
-            handleWatchLater={() => handleExplore(video, "watchLater")}
+            handleWatchLater={handleWatchLater}
             watchLater={true}
-            handlePlaylist={() => handleExplore(video, "playlist")}
             playlist={true}
-            handleModalOpen={handleModalOpen}
+            handlePlaylist={handlePlaylist}
           />
         ))}
       </Grid>
       {modal && (
-        <PlaylistModal token={token} modal={modal} setModal={setModal} playlistVideo={playlistVideo} />
+        <PlaylistModal
+          token={token}
+          modal={modal}
+          setModal={setModal}
+          playlistVideo={playlistVideo}
+        />
       )}
     </main>
   );

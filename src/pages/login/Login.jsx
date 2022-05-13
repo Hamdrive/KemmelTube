@@ -137,6 +137,7 @@ export const Login = () => {
           component="div"
           sx={{
             border: "2px solid #373c43 ",
+            borderRadius: "10px",
             p: {
               xs: 2,
               sm: 5,
@@ -197,7 +198,7 @@ export const Login = () => {
                   password: "hamza49571",
                 })
               }>
-              Login as test user
+              Fill test credentials
             </ButtonOutlineWrapper>
           </Box>
           <Box mt={2} component="div">

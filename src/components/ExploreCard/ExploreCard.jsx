@@ -14,35 +14,60 @@ import {
 } from "@mui/material";
 import { Box } from "@mui/system";
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import WatchLaterIcon from "@mui/icons-material/WatchLater";
 import MoreVertIcon from "@mui/icons-material/MoreVert";
 import PlaylistAddIcon from "@mui/icons-material/PlaylistAdd";
+import DeleteIcon from "@mui/icons-material/Delete";
+import { useAuth, useVideo } from "../../context";
 
-export const ExploreCard = ({
-  video,
-  handlePlaylist,
-}) => {
+export const ExploreCard = ({ video, handlePlaylist }) => {
   const [anchorEl, setAnchorEl] = useState(null);
 
+  const { title, thumbnail, creator, creatorLogo, _id } = video;
+
   const {
-    title,
-    thumbnail,
-    creator,
-    creatorLogo,
-    _id,
-    handleWatchLater,
-    watchLater,
-  } = video;
+    videoState: { watchLater },
+    videoDispatch,
+    setWatchLater,
+    deleteFromWatchLater,
+  } = useVideo();
+
+  const {
+    authState: { token },
+  } = useAuth();
+
+  const navigate = useNavigate();
+
+  const isWatchLater = watchLater?.some(
+    (allvideo) => allvideo._id === video._id
+  );
+
+  const handleWatchLater = () => {
+    if (token) {
+      isWatchLater
+        ? deleteFromWatchLater(token, video._id, videoDispatch)
+        : setWatchLater(token, video, videoDispatch);
+    } else {
+      navigate("/login", {
+        replace: true,
+      });
+    }
+  };
 
   const options = [
     {
-      id: 1,
-      name: "Add to Watch Later",
-      icon: <WatchLaterIcon />,
+      id: "watchLater",
+      name: isWatchLater ? "Remove From Watch Later" : "Add to Watch Later",
+      icon: isWatchLater ? (
+        <DeleteIcon sx={{ color: "#f44336" }} />
+      ) : (
+        <WatchLaterIcon />
+      ),
+      action: () => handleWatchLater(),
     },
     {
-      id: 2,
+      id: "playlist",
       name: "Add to Playlist",
       icon: <PlaylistAddIcon />,
       action: () => {
@@ -140,32 +165,22 @@ export const ExploreCard = ({
           PaperProps={{
             style: {
               maxHeight: "6rem",
-              width: "30ch",
+              width: "35ch",
             },
           }}>
           {options.map((option) => (
-            <MenuItem key={option.id} onClick={option.action}>
+            <MenuItem
+              key={option.id}
+              onClick={option.action}
+              sx={{
+                color: option.id === "watchLater" && isWatchLater && "#f44336",
+              }}>
               <ListItemIcon>{option.icon}</ListItemIcon>
               <ListItemText>{option.name}</ListItemText>
             </MenuItem>
           ))}
         </Menu>
       </Box>
-      {watchLater && (
-        <IconButton
-          onClick={handleWatchLater}
-          sx={{
-            "&:hover": {
-              backgroundColor: "#373c434d",
-            },
-            backgroundColor: "#fff",
-            position: "absolute",
-            top: "2%",
-            right: "2%",
-          }}>
-          <WatchLaterIcon sx={{ color: "#373c43", fontSize: "1.5rem" }} />
-        </IconButton>
-      )}
     </Grid>
   );
 };

@@ -92,19 +92,19 @@ export const PlaylistModal = ({
     deleteVideoFromPlaylist,
     isInPlaylist,
   } = useVideo();
-  const [newPlaylist, setnewPlaylist] = useState(false);
-  const [playlistTitle, setplaylistTitle] = useState("");
+  const [newPlaylist, setNewPlaylist] = useState(false);
+  const [playlistTitle, setPlaylistTitle] = useState("");
 
   const location = useLocation();
 
   const handleNewPlaylist = (e) => {
     e.preventDefault(e);
     setPlaylists(token, playlistTitle, videoDispatch);
-    setplaylistTitle("");
+    setPlaylistTitle("");
   };
 
   const handleVideoInPlaylist = (e, playlistId) => {
-      e.preventDefault()
+    e.preventDefault();
     isInPlaylist(playlistId, playlistVideo._id)
       ? deleteVideoFromPlaylist(
           token,
@@ -154,8 +154,8 @@ export const PlaylistModal = ({
           <Typography
             sx={{ color: "#fff" }}
             id="modal-modal-title"
-            variant="h6"
-            component="h2">
+            variant="h5"
+            component="h5">
             Playlist
           </Typography>
           <IconButton onClick={handleClose} id="long-button">
@@ -192,7 +192,7 @@ export const PlaylistModal = ({
                 name={"playlist name"}
                 value={playlistTitle}
                 placeholder="Playlist name"
-                handleChange={(e) => setplaylistTitle(e.target.value)}
+                handleChange={(e) => setPlaylistTitle(e.target.value)}
               />
             </CustomFormControl>
             <ButtonWrapper type="submit">
@@ -201,7 +201,7 @@ export const PlaylistModal = ({
             </ButtonWrapper>
           </Box>
         ) : (
-          <ButtonOutlineWrapper onClick={() => setnewPlaylist((p) => !p)}>
+          <ButtonOutlineWrapper onClick={() => setNewPlaylist((p) => !p)}>
             <AddIcon />
             Create new playlist
           </ButtonOutlineWrapper>

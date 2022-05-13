@@ -22,10 +22,8 @@ import PlaylistAddIcon from "@mui/icons-material/PlaylistAdd";
 export const ExploreCard = ({
   video,
   handleModalOpen,
-  // handlePlaylist,
-  // playlist
 }) => {
-  const [anchorEl, setanchorEl] = useState(null);
+  const [anchorEl, setAnchorEl] = useState(null);
 
   const {
     title,
@@ -49,7 +47,7 @@ export const ExploreCard = ({
       icon: <PlaylistAddIcon />,
       action: () => {
         handleModalOpen(video);
-        setanchorEl(null);
+        setAnchorEl(null);
       },
     },
   ];
@@ -130,13 +128,13 @@ export const ExploreCard = ({
         component="section">
         <IconButton
           id="long-button"
-          onClick={(e) => setanchorEl(e.currentTarget)}>
+          onClick={(e) => setAnchorEl(e.currentTarget)}>
           <MoreVertIcon sx={{ color: "#fff" }} />
         </IconButton>
         <Menu
           id="long-menu"
           open={Boolean(anchorEl)}
-          onClose={() => setanchorEl(null)}
+          onClose={() => setAnchorEl(null)}
           anchorEl={anchorEl}
           anchorOrigin={{ vertical: "bottom", horizontal: "center" }}
           PaperProps={{

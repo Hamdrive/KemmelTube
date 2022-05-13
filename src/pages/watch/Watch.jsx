@@ -9,7 +9,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import { useAuth, useVideo } from "../../context";
 
 export const Watch = () => {
-  const [playlistVideo, setplaylistVideo] = useState({});
+  const [playlistVideo, setPlaylistVideo] = useState({});
 
   const { slug } = useParams();
   const {
@@ -28,7 +28,7 @@ export const Watch = () => {
     setModal,
   } = useAuth();
 
-  const navigate = useNavigate()
+  const navigate = useNavigate();
   const currentVideo = videos?.find((video) => video._id === slug);
 
   const relatedVideos = videos?.filter(
@@ -46,25 +46,33 @@ export const Watch = () => {
     token && setHistory(token, video, videoDispatch);
   };
 
-  const updateLikedVideos = (video) => {
-    token && setLikedVideos(token, video, videoDispatch);
+  const handleLiked = (video) => {
+    if (token) {
+      isLiked
+        ? deleteFromLikedVideos(token, video._id, videoDispatch)
+        : setLikedVideos(token, video, videoDispatch);
+    } else {
+      navigate("/login", {
+        replace: true,
+      });
+    }
   };
 
-  const handleDeleteFromLikedVideos = (videoId) => {
-    deleteFromLikedVideos(token, videoId, videoDispatch);
-  };
-
-  const updateWatchLater = (video) => {
-    token && setWatchLater(token, video, videoDispatch);
-  };
-
-  const handleDeleteFromWatchLater = (videoId) => {
-    deleteFromWatchLater(token, videoId, videoDispatch);
+  const handleWatchLater = (video) => {
+    if (token) {
+      isWatchLater
+        ? deleteFromWatchLater(token, video._id, videoDispatch)
+        : setWatchLater(token, video, videoDispatch);
+    } else {
+      navigate("/login", {
+        replace: true,
+      });
+    }
   };
 
   const handlePlaylist = (video) => {
     if (token) {
-      setplaylistVideo(video);
+      setPlaylistVideo(video);
       setModal((s) => !s);
     } else {
       navigate("/login", {
@@ -85,18 +93,10 @@ export const Watch = () => {
             creatorLogo={currentVideo?.creatorLogo}
             description={currentVideo?.description}
             setHistory={() => updateHistory(currentVideo)}
-            setLikedVideos={
-              isLiked
-                ? () => handleDeleteFromLikedVideos(currentVideo._id)
-                : () => updateLikedVideos(currentVideo)
-            }
             isLiked={isLiked}
-            setWatchLater={
-              isWatchLater
-                ? () => handleDeleteFromWatchLater(currentVideo._id)
-                : () => updateWatchLater(currentVideo)
-            }
+            setLikedVideos={() => handleLiked(currentVideo)}
             isWatchLater={isWatchLater}
+            setWatchLater={() => handleWatchLater(currentVideo)}
             handlePlaylistModal={handlePlaylist}
           />
         </Grid>

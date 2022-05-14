@@ -126,7 +126,6 @@ export const setPlaylists = async (token, playlistTitle, videoDispatch) => {
       { headers: { authorization: token } }
     );
     if (res.status == 200 || res.status === 201) {
-      console.log(res);
       videoDispatch({ type: addPlaylist, payload: res.data.playlists });
     }
   } catch (error) {
@@ -148,7 +147,6 @@ export const setPlaylistNewVideo = async (
       { headers: { authorization: token } }
     );
     if (res.status == 200 || res.status === 201) {
-      console.log(res);
       const playlist = res.data.playlist;
       const updatedPlaylists = playlists.map((localPlaylist) =>
         localPlaylist._id === playlist._id

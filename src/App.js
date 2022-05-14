@@ -3,7 +3,7 @@ import { Router } from "./router";
 import "./index.css";
 import { AuthProvider, VideoProvider } from "./context";
 import { NavigationWrapper } from "./components";
-import { WindowScrollToTop } from "./windowScrollToTop/windowScrollToTop";
+import { WindowScrollToTop } from "./utils";
 
 function App() {
   return (

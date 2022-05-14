@@ -7,11 +7,11 @@ import {
 } from "../../components";
 import { useNavigate, useParams } from "react-router-dom";
 import { useAuth, useVideo } from "../../context";
+import { useDocumentTitle } from "../../utils";
 
 export const Watch = () => {
   const [playlistVideo, setPlaylistVideo] = useState({});
 
-  const { slug } = useParams();
   const {
     videoState: { videos, likedVideos, watchLater },
     videoDispatch,
@@ -28,8 +28,12 @@ export const Watch = () => {
     setModal,
   } = useAuth();
 
+  const { slug } = useParams();
   const navigate = useNavigate();
+
   const currentVideo = videos?.find((video) => video._id === slug);
+  
+  useDocumentTitle(`${currentVideo?.title} | KemmelTube`);
 
   const relatedVideos = videos?.filter(
     (video) =>

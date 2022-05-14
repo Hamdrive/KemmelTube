@@ -14,6 +14,7 @@ import { EmptyResult } from "./emptyResult/EmptyResult";
 import { PrivateCard } from "./PrivateCard/PrivateCard";
 import { PlaylistModal } from "./playlistModal/PlaylistModal";
 import { PlaylistCard } from "./playlistCard/PlaylistCard";
+import { ErrorResult } from "./errorResult/ErrorResult";
 
 export {
   Navbar,
@@ -32,4 +33,5 @@ export {
   PrivateCard,
   PlaylistModal,
   PlaylistCard,
+  ErrorResult,
 };

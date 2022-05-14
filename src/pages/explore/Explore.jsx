@@ -3,22 +3,25 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { CategoryFilter, ExploreCard, PlaylistModal } from "../../components";
 import { useAuth, useVideo } from "../../context";
+import { useDocumentTitle } from "../../utils";
 
 export const Explore = () => {
   const [playlistVideo, setPlaylistVideo] = useState({});
-  const { modal, setModal } = useAuth();
 
   const {
     videoState: { filteredVideos, filters },
   } = useVideo();
 
+  const [selectedCategory, setSelectedCategory] = useState(filters ?? "All");
   const {
     authState: { token },
+    modal,
+    setModal,
   } = useAuth();
 
   const navigate = useNavigate();
 
-  const [selectedCategory, setSelectedCategory] = useState(filters ?? "All");
+  useDocumentTitle(`Explore ${selectedCategory === "All" ? "" : selectedCategory} | KemmelTube`);
 
   const handlePlaylist = (video) => {
     if (token) {

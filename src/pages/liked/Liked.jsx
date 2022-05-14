@@ -2,6 +2,7 @@ import { Grid } from "@mui/material";
 import React from "react";
 import { EmptyResult, PageHeader, PrivateCard } from "../../components";
 import { useAuth, useVideo } from "../../context";
+import { useDocumentTitle } from "../../utils";
 
 export const Liked = () => {
   const {
@@ -13,6 +14,12 @@ export const Liked = () => {
   const {
     authState: { token },
   } = useAuth();
+
+  useDocumentTitle(
+    `Liked Videos ${
+      likedVideos.length > 0 ? `(${likedVideos.length})` : ""
+    } | KemmelTube`
+  );
 
   const handleDeleteFromLikedVideos = (videoId) => {
     deleteFromLikedVideos(token, videoId, videoDispatch);

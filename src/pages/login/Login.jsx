@@ -11,6 +11,7 @@ import { Link, useLocation, useNavigate } from "react-router-dom";
 import { PasswordInput, RegularTextInput } from "../../components";
 import { useAuth } from "../../context";
 import { handleLogin } from "../../context/auth-context/server-requests";
+import { useDocumentTitle } from "../../utils";
 
 const CustomFormControl = styled(FormControl)({
   required: true,
@@ -85,6 +86,8 @@ export const Login = () => {
 
   const navigate = useNavigate();
   const location = useLocation();
+
+  useDocumentTitle("SignUp | KemmelTube");
 
   const handleChange = (e) => {
     const { name, value } = e.target;

@@ -2,6 +2,7 @@ import { Grid } from "@mui/material";
 import React, { useState, useEffect } from "react";
 import { PageHeader, EmptyResult, PrivateCard } from "../../components";
 import { useAuth, useVideo } from "../../context";
+import { useDocumentTitle } from "../../utils";
 
 export const History = () => {
   const [showBtn, setShowBtn] = useState(false);
@@ -15,6 +16,8 @@ export const History = () => {
   const {
     authState: { token },
   } = useAuth();
+
+  useDocumentTitle("History | KemmelTube")
 
   const handleClear = () => {
     clearAllHistory(token, videoDispatch);

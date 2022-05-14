@@ -2,6 +2,7 @@ import { Grid } from "@mui/material";
 import React from "react";
 import { EmptyResult, PageHeader, PrivateCard } from "../../components";
 import { useAuth, useVideo } from "../../context";
+import { useDocumentTitle } from "../../utils";
 
 export const WatchLater = () => {
   const {
@@ -13,6 +14,12 @@ export const WatchLater = () => {
   const {
     authState: { token },
   } = useAuth();
+
+  useDocumentTitle(
+    `Watch Later ${
+      watchLater.length > 0 ? `(${watchLater.length})` : ""
+    } | KemmelTube`
+  );
 
   const handleDeleteFromWatchLater = (videoId) => {
     deleteFromWatchLater(token, videoId, videoDispatch);

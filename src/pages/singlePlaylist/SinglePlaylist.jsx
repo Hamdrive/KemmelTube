@@ -3,6 +3,7 @@ import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { EmptyResult, PageHeader, PrivateCard } from "../../components";
 import { useAuth, useVideo } from "../../context";
+import { useDocumentTitle } from "../../utils";
 
 export const SinglePlaylist = () => {
   const [currentPlaylist, setCurrentPlaylist] = useState("");
@@ -18,6 +19,8 @@ export const SinglePlaylist = () => {
   } = useAuth();
 
   const { slug } = useParams();
+
+  useDocumentTitle(`Playlist : ${currentPlaylist?.title} | KemmelTube`);
 
   const handleDeleteVideoFromPlaylist = (videoId) => {
     deleteVideoFromPlaylist(token, videoId, playlists, slug, videoDispatch);

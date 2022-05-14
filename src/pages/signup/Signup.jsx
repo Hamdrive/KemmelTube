@@ -12,6 +12,7 @@ import { Link, useLocation, useNavigate } from "react-router-dom";
 import { PasswordInput, RegularTextInput } from "../../components";
 import { useAuth } from "../../context";
 import { handleSignUp } from "../../context/auth-context/server-requests";
+import { useDocumentTitle } from "../../utils";
 
 const CustomFormControl = styled(FormControl)({
   variant: "outlined",
@@ -76,6 +77,8 @@ export const Signup = () => {
 
   const navigate = useNavigate();
   const location = useLocation();
+
+  useDocumentTitle("SignUp | KemmelTube");
 
   const handleChange = (e) => {
     const { name, value } = e.target;

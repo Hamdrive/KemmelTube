@@ -7,6 +7,7 @@ import {
   PlaylistCard,
 } from "../../components";
 import { useAuth, useVideo } from "../../context";
+import { useDocumentTitle } from "../../utils";
 
 export const Playlists = () => {
   const {
@@ -20,6 +21,12 @@ export const Playlists = () => {
     modal,
     setModal,
   } = useAuth();
+
+  useDocumentTitle(
+    `Playlists ${
+      playlists.length > 0 ? `(${playlists.length})` : ""
+    } | KemmelTube`
+  );
 
   const handleModalOpen = () => {
     setModal((s) => !s);

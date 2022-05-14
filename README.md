@@ -20,6 +20,7 @@ $ cd KemmelTube
 $ npm install
 $ npm start
 ```
+*Don't forget to cleanup the preview GIF!*
 
 ---
 
@@ -63,5 +64,7 @@ Checkout the live deployment here: [KemmelTube](https://kemmeltube.vercel.app/)
 ---
 
 ## Demo Video
+
+![KemmelTube Preview Video](/src/assets/DemoVideo.gif)
 
 

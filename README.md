@@ -51,6 +51,7 @@ $ npm start
 - React Router v6
 - React Context API + useReducer
 - Material UI for CSS and components
+- Backend setup using [MockBee](https://mockbee.netlify.app/)
 - React Youtube for embedded player
 - Vercel for Deployment
 - Cloudinary for Hosting of Images

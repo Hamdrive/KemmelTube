@@ -1,4 +1,5 @@
 import axios from "axios";
+import { Toast } from "../../components";
 import { constants } from "../../constants/constants";
 
 const { login, logout, signup } = constants;
@@ -16,8 +17,17 @@ export const handleSignUp = async (signUpCredentials, authDispatch) => {
       localStorage.setItem("userAuthData", JSON.stringify(formatData));
 
       authDispatch({ type: signup, payload: formatData });
+
+      Toast({
+        type: "success",
+        message: "You have been successfully signed up 🎉",
+      });
     }
   } catch (error) {
+    Toast({
+      type: "error",
+      message: "Please fill all required fields 🙁 ",
+    });
     throw new Error(error);
   }
 };
@@ -34,8 +44,17 @@ export const handleLogin = async (loginCredentials, authDispatch) => {
       localStorage.setItem("userAuthData", JSON.stringify(formatData));
 
       authDispatch({ type: login, payload: formatData });
+
+      Toast({
+        type: "success",
+        message: "You have been successfully logged in 🎉",
+      });
     }
   } catch (error) {
+    Toast({
+      type: "error",
+      message: "Invalid credentials. Please try again 🙁 ",
+    });
     throw new Error(error);
   }
 };
@@ -43,4 +62,8 @@ export const handleLogin = async (loginCredentials, authDispatch) => {
 export const handleLogout = (authDispatch) => {
   localStorage.removeItem("userAuthData");
   authDispatch({ type: logout });
+  Toast({
+    type: "success",
+    message: "You have been logged out, see you soon 👋",
+  });
 };

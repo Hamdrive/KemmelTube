@@ -1,4 +1,5 @@
 import axios from "axios";
+import { Toast } from "../../components";
 import { constants } from "../../constants/constants";
 
 const {
@@ -27,8 +28,12 @@ export const getVideos = async (videoDispatch) => {
     if (res.status === 200 || res.status === 201) {
       videoDispatch({ type: videos, payload: res.data.videos });
     }
-  } catch {
-    throw new Error(" Error while fetching data");
+  } catch (error) {
+    Toast({
+      type: "error",
+      message: "Something went wrong. Please try again 🙁 ",
+    });
+    throw new Error(error);
   }
 };
 
@@ -38,8 +43,12 @@ export const getCategories = async (videoDispatch) => {
     if (res.status === 200 || res.status === 201) {
       videoDispatch({ type: categories, payload: res.data.categories });
     }
-  } catch {
-    throw new Error(" Error while fetching data");
+  } catch (error) {
+    Toast({
+      type: "error",
+      message: "Something went wrong. Please try again 🙁 ",
+    });
+    throw new Error(error);
   }
 };
 
@@ -49,6 +58,10 @@ export const getHistory = async (videoDispatch) => {
 
     videoDispatch({ type: history, payload: res.history });
   } catch (error) {
+    Toast({
+      type: "error",
+      message: "Something went wrong. Please try again 🙁 ",
+    });
     throw new Error(error);
   }
 };
@@ -64,6 +77,10 @@ export const setHistory = async (token, video, videoDispatch) => {
       videoDispatch({ type: addToHistory, payload: res.data.history });
     }
   } catch (error) {
+    Toast({
+      type: "error",
+      message: "Something went wrong. Please try again 🙁 ",
+    });
     throw new Error(error);
   }
 };
@@ -76,8 +93,16 @@ export const deleteFromHistory = async (token, videoId, videoDispatch) => {
 
     if (res.status == 200 || res.status === 201) {
       videoDispatch({ type: deleteHistory, payload: res.data.history });
+            Toast({
+              type: "success",
+              message: "Video successfully deleted from your History 🧹",
+            });
     }
   } catch (error) {
+    Toast({
+      type: "error",
+      message: "Something went wrong. Please try again 🙁 ",
+    });
     throw new Error(error);
   }
 };
@@ -89,8 +114,16 @@ export const clearAllHistory = async (token, videoDispatch) => {
     });
     if (res.status == 200 || res.status === 201) {
       videoDispatch({ type: deleteAllHistory, payload: res.data.history });
+            Toast({
+              type: "success",
+              message: "Successfully cleared all your history 🧹",
+            });
     }
   } catch (error) {
+    Toast({
+      type: "error",
+      message: "Something went wrong. Please try again 🙁 ",
+    });
     throw new Error(error);
   }
 };
@@ -101,6 +134,10 @@ export const getPlaylists = async (videoDispatch) => {
 
     videoDispatch({ type: playlists, payload: res.playlists });
   } catch (error) {
+    Toast({
+      type: "error",
+      message: "Something went wrong. Please try again 🙁 ",
+    });
     throw new Error(error);
   }
 };
@@ -114,6 +151,10 @@ export const getSinglePlaylist = async (token, playlistId) => {
       return res.data.playlist;
     }
   } catch (error) {
+    Toast({
+      type: "error",
+      message: "Something went wrong. Please try again 🙁 ",
+    });
     throw new Error(error);
   }
 };
@@ -127,8 +168,16 @@ export const setPlaylists = async (token, playlistTitle, videoDispatch) => {
     );
     if (res.status == 200 || res.status === 201) {
       videoDispatch({ type: addPlaylist, payload: res.data.playlists });
+            Toast({
+              type: "success",
+              message: `Playlist ${playlistTitle} successfully created 🎉`,
+            });
     }
   } catch (error) {
+    Toast({
+      type: "error",
+      message: "Something went wrong. Please try again 🙁 ",
+    });
     throw new Error(error);
   }
 };
@@ -154,8 +203,16 @@ export const setPlaylistNewVideo = async (
           : { ...localPlaylist }
       );
       videoDispatch({ type: addVideoToPlaylist, payload: updatedPlaylists });
+            Toast({
+              type: "success",
+              message: "Video added to playlist 🎉",
+            });
     }
   } catch (error) {
+    Toast({
+      type: "error",
+      message: "Something went wrong. Please try again 🙁 ",
+    });
     throw new Error(error);
   }
 };
@@ -183,8 +240,16 @@ export const deleteVideoFromPlaylist = async (
         type: removeVideoFromPlaylist,
         payload: updatedPlaylists,
       });
+            Toast({
+              type: "success",
+              message: "Video deleted from playlist 🧹",
+            });
     }
   } catch (error) {
+    Toast({
+      type: "error",
+      message: "Something went wrong. Please try again 🙁 ",
+    });
     throw new Error(error);
   }
 };
@@ -200,8 +265,16 @@ export const deleteSinglePlaylist = async (
     });
     if (res.status == 200 || res.status === 201) {
       videoDispatch({ type: deletePlaylist, payload: res.data.playlists });
+            Toast({
+              type: "success",
+              message: "Playlist has been deleted 🧹",
+            });
     }
   } catch (error) {
+    Toast({
+      type: "error",
+      message: "Something went wrong. Please try again 🙁 ",
+    });
     throw new Error(error);
   }
 };
@@ -212,6 +285,10 @@ export const getLikedVideos = async (videoDispatch) => {
 
     videoDispatch({ type: likedVideos, payload: res.likes });
   } catch (error) {
+    Toast({
+      type: "error",
+      message: "Something went wrong. Please try again 🙁 ",
+    });
     throw new Error(error);
   }
 };
@@ -225,8 +302,16 @@ export const setLikedVideos = async (token, video, videoDispatch) => {
     );
     if (res.status == 200 || res.status === 201) {
       videoDispatch({ type: addToLikedVideos, payload: res.data.likes });
+            Toast({
+              type: "success",
+              message: "Video added to your Likes 🎉",
+            });
     }
   } catch (error) {
+    Toast({
+      type: "error",
+      message: "Something went wrong. Please try again 🙁 ",
+    });
     throw new Error(error);
   }
 };
@@ -239,8 +324,16 @@ export const deleteFromLikedVideos = async (token, videoId, videoDispatch) => {
 
     if (res.status == 200 || res.status === 201) {
       videoDispatch({ type: removeFromLikedVideos, payload: res.data.likes });
+            Toast({
+              type: "success",
+              message: "Video deleted from your Liked Videos 🧹",
+            });
     }
   } catch (error) {
+    Toast({
+      type: "error",
+      message: "Something went wrong. Please try again 🙁 ",
+    });
     throw new Error(error);
   }
 };
@@ -251,6 +344,10 @@ export const getWatchLater = async (videoDispatch) => {
 
     videoDispatch({ type: watchLater, payload: res.watchlater });
   } catch (error) {
+    Toast({
+      type: "error",
+      message: "Something went wrong. Please try again 🙁 ",
+    });
     throw new Error(error);
   }
 };
@@ -264,8 +361,16 @@ export const setWatchLater = async (token, video, videoDispatch) => {
     );
     if (res.status == 200 || res.status === 201) {
       videoDispatch({ type: addToWatchLater, payload: res.data.watchlater });
+            Toast({
+              type: "success",
+              message: "Video added to your Watch Later 🎉",
+            });
     }
   } catch (error) {
+    Toast({
+      type: "error",
+      message: "Something went wrong. Please try again 🙁 ",
+    });
     throw new Error(error);
   }
 };
@@ -281,8 +386,16 @@ export const deleteFromWatchLater = async (token, videoId, videoDispatch) => {
         type: removeFromWatchLater,
         payload: res.data.watchlater,
       });
+      Toast({
+        type: "success",
+        message: "Video deleted from your Watch Later 🧹",
+      });
     }
   } catch (error) {
+    Toast({
+      type: "error",
+      message: "Something went wrong. Please try again 🙁 ",
+    });
     throw new Error(error);
   }
 };

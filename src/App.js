@@ -4,6 +4,7 @@ import "./index.css";
 import { AuthProvider, VideoProvider } from "./context";
 import { NavigationWrapper } from "./components";
 import { WindowScrollToTop } from "./utils";
+import { ToastContainer } from "react-toastify";
 
 function App() {
   return (
@@ -12,6 +13,7 @@ function App() {
         <NavigationWrapper>
           <WindowScrollToTop />
           <Router />
+          <ToastContainer />
         </NavigationWrapper>
       </VideoProvider>
     </AuthProvider>

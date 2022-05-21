@@ -20,7 +20,7 @@ export const RegularTextInput = ({
       label={text}
       value={value}
       placeholder={placeholder}
-      helperText={helperText}
+      helperText={error && helperText}
       onChange={handleChange}
       autoComplete="off"
     />

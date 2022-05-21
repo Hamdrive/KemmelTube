@@ -31,7 +31,7 @@ export const SinglePlaylist = () => {
       const getcurrentPlaylist = await getSinglePlaylist(token, slug);
       setCurrentPlaylist(getcurrentPlaylist);
     })();
-  }, []);
+  }, [playlists]);
 
   return (
     <main className="wrapper p-1">

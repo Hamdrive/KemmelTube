@@ -8,7 +8,7 @@ import {
 } from "@mui/material";
 import React, { useState } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
-import { PasswordInput, RegularTextInput } from "../../components";
+import { PasswordInput, RegularTextInput, Toast } from "../../components";
 import { useAuth } from "../../context";
 import { handleLogin } from "../../context/auth-context/server-requests";
 import { useDocumentTitle } from "../../utils";
@@ -77,6 +77,7 @@ const ButtonWrapper = styled(Button)(() => ({
 export const Login = () => {
   const [data, setData] = useState({ email: "", password: "" });
   const [loading, setLoading] = useState(false);
+  const [testloading, setTestloading] = useState(false);
   const [errors, setErrors] = useState({
     emailError: false,
     passwordError: false,
@@ -87,7 +88,7 @@ export const Login = () => {
   const navigate = useNavigate();
   const location = useLocation();
 
-  useDocumentTitle("SignUp | KemmelTube");
+  useDocumentTitle("LogIn | KemmelTube");
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -113,18 +114,51 @@ export const Login = () => {
     }
   };
 
-  const handleSubmit = async () => {
-    if (!handleErrors()) return;
-    setLoading(true);
+  const handleTestLogin = async () => {
+    setTestloading(true);
+
     try {
-      await handleLogin(data, authDispatch);
+      await handleLogin(
+        {
+          email: "hamza@kemmeltube.com",
+          password: "hamza49571",
+        },
+        authDispatch
+      );
+      Toast({
+        type: "success",
+        message: "Welcome back Test User 🎉 ",
+      });
       navigate(location?.state?.from?.pathname || "/", {
         replace: true,
       });
     } catch (error) {
       throw new Error(error);
     } finally {
+      setTestloading(false);
+    }
+  };
+
+  const handleSubmit = async () => {
+    setLoading(true);
+    if (!handleErrors()) {
       setLoading(false);
+      return;
+    } else {
+      try {
+        await handleLogin(data, authDispatch);
+        navigate(location?.state?.from?.pathname || "/", {
+          replace: true,
+        });
+      } catch (error) {
+        setErrors({
+          emailError: true,
+          passwordError: true,
+        });
+        throw new Error(error);
+      } finally {
+        setLoading(false);
+      }
     }
   };
 
@@ -162,7 +196,7 @@ export const Login = () => {
                 name={"email"}
                 value={data.email}
                 error={errors.emailError}
-                helperText="Invalid email"
+                helperText="Invalid email or password"
                 placeholder="johnrao.doekar@email.com"
                 handleChange={(e) => handleChange(e)}
               />
@@ -175,8 +209,8 @@ export const Login = () => {
                 name={"password"}
                 value={data.password}
                 error={errors.passwordError}
-                helperText="Password should be greater than 6 characters"
-                placeholder="johnraodoekar"
+                helperText="Invalid email or password"
+                placeholder="johnraodoekar (Min 6 characters)"
                 handleChange={(e) => handleChange(e)}
               />
             </CustomFormControl>
@@ -194,14 +228,16 @@ export const Login = () => {
                 "Login"
               )}
             </ButtonWrapper>
-            <ButtonOutlineWrapper
-              onClick={() =>
-                setData({
-                  email: "hamza@kemmeltube.com",
-                  password: "hamza49571",
-                })
-              }>
-              Fill test credentials
+            <ButtonOutlineWrapper onClick={handleTestLogin}>
+              {testloading ? (
+                <CircularProgress
+                  size={30}
+                  thickness={5}
+                  sx={{ color: "#fff" }}
+                />
+              ) : (
+                "Login with test credentials"
+              )}
             </ButtonOutlineWrapper>
           </Box>
           <Box mt={2} component="div">

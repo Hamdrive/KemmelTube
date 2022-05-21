@@ -8,7 +8,7 @@ export const PasswordInput = ({
   value,
   handleChange,
   placeholder = "",
-  helperText = "Invalid input",
+  helperText = "",
   required = false,
   error = false,
 }) => {
@@ -27,7 +27,7 @@ export const PasswordInput = ({
       label={text}
       value={value}
       placeholder={placeholder}
-      helperText={helperText}
+      helperText={error && helperText}
       onChange={handleChange}
       type={showPassword ? "text" : "password"}
       autoComplete="off"

@@ -8,7 +8,7 @@ import {
 } from "@mui/material";
 import React, { useState } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
-import { PasswordInput, RegularTextInput } from "../../components";
+import { PasswordInput, RegularTextInput, Toast } from "../../components";
 import { useAuth } from "../../context";
 import { handleLogin } from "../../context/auth-context/server-requests";
 import { useDocumentTitle } from "../../utils";
@@ -125,6 +125,10 @@ export const Login = () => {
         },
         authDispatch
       );
+      Toast({
+        type: "success",
+        message: "Welcome back Test User 🎉 ",
+      });
       navigate(location?.state?.from?.pathname || "/", {
         replace: true,
       });

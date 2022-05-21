@@ -9,7 +9,7 @@ import {
 } from "@mui/material";
 import React, { useState } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
-import { PasswordInput, RegularTextInput } from "../../components";
+import { PasswordInput, RegularTextInput, Toast } from "../../components";
 import { useAuth } from "../../context";
 import { handleSignUp } from "../../context/auth-context/server-requests";
 import { useDocumentTitle } from "../../utils";
@@ -108,13 +108,20 @@ export const Signup = () => {
   };
 
   const handleSubmit = async () => {
-    if (!handleErrors()) return;
+    if (!handleErrors()) {
+      Toast({
+        type: "error",
+        message: "Invalid credentials. Please try again 🙁",
+      });
+      return;
+    }
     setLoading(true);
     try {
       await handleSignUp(data, authDispatch);
       navigate(location?.state?.from?.pathname || "/", {
         replace: true,
       });
+
     } catch (error) {
       throw new Error(error);
     } finally {

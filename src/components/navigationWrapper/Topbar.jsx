@@ -41,6 +41,7 @@ export const Topbar = ({ setShowSidebar, setSelected, handleLogout }) => {
     marginLeft: "auto",
     marginRight: "auto",
     width: "50%",
+    visibility: "hidden"
   }));
 
   const SearchIconWrapper = styled("div")(() => ({

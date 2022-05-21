@@ -88,7 +88,7 @@ export const Signup = () => {
 
   const handleErrors = () => {
     let flag = false;
-    if (data.firstName.length < 6) {
+    if (data.firstName.length === 0) {
       flag = true;
       setErrors((prev) => ({ ...prev, firstNameError: true }));
     }

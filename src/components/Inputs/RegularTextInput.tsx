@@ -1,5 +1,16 @@
 import { TextField } from "@mui/material";
-import React from "react";
+import React, { ChangeEventHandler } from "react";
+
+type RegularTextProps = {
+  text: string;
+  name: string;
+  value: string;
+  handleChange: ChangeEventHandler;
+  placeholder: string;
+  helperText: string;
+  required: boolean;
+  error: boolean;
+};
 
 export const RegularTextInput = ({
   text,
@@ -10,7 +21,7 @@ export const RegularTextInput = ({
   helperText = "",
   required = false,
   error = false,
-}) => {
+}: RegularTextProps) => {
   return (
     <TextField
       required={required}

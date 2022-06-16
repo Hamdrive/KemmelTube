@@ -1,6 +1,17 @@
 import { Visibility, VisibilityOff } from "@mui/icons-material";
 import { IconButton, InputAdornment, TextField } from "@mui/material";
-import React, { useState } from "react";
+import React, { ChangeEventHandler, useState } from "react";
+
+type PasswordTextProps = {
+  text: string;
+  name: string;
+  value: string;
+  handleChange: ChangeEventHandler;
+  placeholder: string;
+  helperText: string;
+  required: boolean;
+  error: boolean;
+};
 
 export const PasswordInput = ({
   text,
@@ -11,7 +22,7 @@ export const PasswordInput = ({
   helperText = "",
   required = false,
   error = false,
-}) => {
+}: PasswordTextProps) => {
   const [showPassword, setShowPassword] = useState(false);
 
   const handleVisibility = () => {

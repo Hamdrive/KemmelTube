@@ -1,5 +1,6 @@
-import { Navigate, Outlet } from "react-router-dom";
+import React from "react"
 import { useAuth } from "../context";
+import { Navigate, Outlet } from "react-router-dom";
 
 export const RedirectAuth = () => {
   const {
